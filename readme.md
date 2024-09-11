@@ -4,6 +4,8 @@
 
 An intentionally vulnerable employee portal site, written in Node.js with Express and Handlebars.
 
+This is the frontend for the [Vulnerable REST API](https://github.com/fieldse/vulnerable-rest-api).
+
 ## Motivation
 
 This is part of a series of hand-built practice grounds for pentesting exercises.

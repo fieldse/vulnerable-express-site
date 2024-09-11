@@ -1,0 +1,27 @@
+{
+  "name": "vulnerable-express-site",
+  "version": "1.0.0",
+  "description": "An intentionally vulnerable employee portal site, written in Node.js with Express and Handlebars",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fieldse/vulnerable-express-site.git"
+  },
+  "keywords": [
+    "vulnerable",
+    "REST",
+    "API",
+    "pentesting",
+    "express",
+    "handlebars"
+  ],
+  "author": "Matt Fields",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fieldse/vulnerable-express-site/issues"
+  },
+  "homepage": "https://github.com/fieldse/vulnerable-express-site#readme"
+}
