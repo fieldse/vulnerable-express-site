@@ -4,6 +4,7 @@
   "description": "An intentionally vulnerable employee portal site, written in Node.js with Express and Handlebars",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
