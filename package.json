@@ -4,8 +4,10 @@
   "description": "An intentionally vulnerable employee portal site, written in Node.js with Express and Handlebars",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fieldse/vulnerable-express-site.git"
@@ -23,5 +25,12 @@
   "bugs": {
     "url": "https://github.com/fieldse/vulnerable-express-site/issues"
   },
-  "homepage": "https://github.com/fieldse/vulnerable-express-site#readme"
+  "homepage": "https://github.com/fieldse/vulnerable-express-site#readme",
+  "dependencies": {
+    "express": "^4.20.0",
+    "express-handlebars": "^8.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
 }
