@@ -1,9 +1,15 @@
 import express from 'express';
-import { engine } from 'express-handlebars';
+import { create } from 'express-handlebars';
 
 const app = express();
+const hbs = create({
+  defaultLayout: 'main',
+  extname: 'hbs',
+  partialsDir: 'views',
+  layoutsDir: 'layouts',
+});
 
-app.engine('handlebars', engine());
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
