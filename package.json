@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/fieldse/vulnerable-express-site/issues"
   },
-  "homepage": "https://github.com/fieldse/vulnerable-express-site#readme"
+  "homepage": "https://github.com/fieldse/vulnerable-express-site#readme",
+  "dependencies": {
+    "express": "^4.20.0",
+    "express-handlebars": "^8.0.1"
+  }
 }
