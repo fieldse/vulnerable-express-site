@@ -4,7 +4,7 @@
   "description": "An intentionally vulnerable employee portal site, written in Node.js with Express and Handlebars",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
@@ -29,5 +29,8 @@
   "dependencies": {
     "express": "^4.20.0",
     "express-handlebars": "^8.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }

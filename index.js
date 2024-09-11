@@ -1,6 +1,5 @@
 import express from 'express';
 import { create } from 'express-handlebars';
-import path from 'path';
 
 const app = express();
 const hbs = create({
