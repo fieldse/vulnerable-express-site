@@ -1,5 +1,5 @@
 // Auth middleware for login/logout
-import { getIsLoggedIn } from '../api/api.js';
+import { getIsLoggedIn } from '../api/auth.js';
 
 // Middleware for login-required pages
 export const isLoggedIn = async (req, res, next) => {

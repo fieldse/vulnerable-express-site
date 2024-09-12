@@ -1,10 +1,9 @@
 import express from 'express';
 import { create } from 'express-handlebars';
-import { login } from './src/api/api.js';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import { getIsLoggedIn } from './src/api/api.js';
-import { isLoggedIn } from './src/auth/auth-middleware.js';
+import { login, getIsLoggedIn } from './src/api/auth.js';
+import { isLoggedIn } from './src/middleware/auth-middleware.js';
 
 const app = express();
 const hbs = create({
