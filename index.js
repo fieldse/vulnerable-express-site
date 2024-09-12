@@ -1,7 +1,9 @@
 import express from 'express';
 import { create } from 'express-handlebars';
+import { login } from './src/api/api.js';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import { getIsLoggedIn } from './src/api/api.js';
 import { isLoggedIn } from './src/auth/auth-middleware.js';
 
 const app = express();
@@ -42,9 +44,40 @@ app.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile');
 });
 
-// Login
-app.get('/login', (req, res) => {
-  res.render('login');
+// GET Login
+app.get('/login', async (req, res) => {
+  const loggedInStatus = await getIsLoggedIn(req);
+  res.render('login', { isLoggedIn: loggedInStatus });
+});
+
+// POST Login
+app.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const result = await login(req, res);
+    console.log(
+      '=== debug: POST /login -- result:',
+      JSON.stringify(result, null, 2)
+    );
+    res.redirect('/profile');
+  } catch (err) {
+    console.log('=== POST login error:', err.message);
+    res.redirect('/login');
+  }
+});
+
+// POST Logout
+app.post('/logout', async (req, res) => {
+  try {
+    const result = await logout(req, res);
+    console.log(
+      '=== debug: POST /logout -- result:',
+      JSON.stringify(result, null, 2)
+    );
+  } catch (err) {
+    console.log('=== POST logout error:', err.message);
+  }
+  res.redirect('/login');
 });
 
 app.listen(3000, () => {
