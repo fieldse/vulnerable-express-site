@@ -1,27 +1,28 @@
 <div class='my-auto mx-auto w-2/3 text-center h-3/4 flex flex-col justify-top'>
+
   <form
     action='/login'
     method='POST'
     class='mt-6 p-12 bg-gray-400 text-white flex flex-col gap-6 rounded-2xl'
   >
-    <h2 class='text-3xl font-extrabold mb-10 mt-4'>Employee login</h2>
 
     {{#if isLoggedIn}}
 
+      <!-- Logout button -->
       <h3 class='text-3xl font-extrabold mb-10 mt-4'>You are logged in</h3>
-
-      <!-- logout button -->
       <div>
-        <button
-          class='px-6 py-2 rounded-md border bg-gray-700 text-white hover:bg-gray-900 hover:border-gray-700'
-          type='submit'
-        >Logout
-        </button>
+        <a href='/logout'>
+          <button
+            class='px-6 py-2 rounded-md border bg-gray-700 text-white hover:bg-gray-900 hover:border-gray-700'
+            type='button'
+          >Logout
+          </button>
+        </a>
       </div>
 
     {{else}}
-
       <!-- Login form -->
+      <h3 class='text-2xl font-extrabold mb-10 mt-4'>Employee login</h3>
       <div class='mt-8 flex flex-row justify-end'>
         <label class='flex-1' for='input-email'>Email</label>
         <input

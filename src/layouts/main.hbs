@@ -6,6 +6,7 @@
   </head>
   <body class='bg-gray-200 font-sans leading-normal tracking-normal h-svh'>
 
+    <!-- Navigation -->
     <div
       id='nav'
       class='w-full mx-auto flex justify-between items-center px-14 h-24 bg-gray-900 text-white'
@@ -17,9 +18,13 @@
         <ul class='flex flex-row justify-between gap-8'>
           <li><a href='/news'>News</a></li>
           <li><a href='/message-board'>Message board</a></li>
-          <li><a href='/profile'>Profile</a></li>
-          <li><a href='/login'>Login</a></li>
           <li><a href='/support'>Support</a></li>
+          {{#if isLoggedIn}}
+            <li><a href='/profile'>My Profile</a></li>
+            <li><a href='/logout'>Log out</a></li>
+          {{else}}
+            <li><a href='/login'>Login</a></li>
+          {{/if}}
         </ul>
       </nav>
 

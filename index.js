@@ -51,8 +51,9 @@ app.get('/support', (req, res) => {
 
 // GET Login
 app.get('/login', async (req, res) => {
-  const loggedInStatus = await api.isLoggedIn(req);
-  res.render('login', { isLoggedIn: loggedInStatus });
+  // const loggedInStatus = await api.isLoggedIn(req);
+  // app.locals.isLoggedIn = loggedInStatus;
+  res.render('login');
 });
 
 // POST Login
@@ -64,6 +65,10 @@ app.post('/login', async (req, res) => {
       `=== debug: POST /login: email: ${email} -- password: ${password}`
     );
     console.log('=== debug: POST /login: result: ', JSON.stringify(result));
+
+    // Fake the login
+    app.locals.isLoggedIn = true;
+
     res.redirect('/profile');
   } catch (err) {
     console.log('=== POST login error:', err.message);
@@ -71,17 +76,19 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// POST Logout
-app.post('/logout', async (req, res) => {
+// Logout
+app.get('/logout', async (req, res) => {
   try {
     const result = await api.logout(req, res);
     console.log(
       '=== debug: POST /logout -- result:',
       JSON.stringify(result, null, 2)
     );
+    app.locals.isLoggedIn = false;
   } catch (err) {
     console.log('=== POST logout error:', err.message);
   }
+
   res.redirect('/login');
 });
 
