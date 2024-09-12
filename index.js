@@ -4,7 +4,6 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import api from './src/api/auth.js';
-import { isLoggedIn } from './src/middleware/auth-middleware.js';
 
 const app = express();
 const hbs = create({
@@ -43,6 +42,11 @@ app.get('/message-board', (req, res) => {
 // Employee profile - PRIVATE ROUTE
 app.get('/profile', (req, res) => {
   res.render('profile');
+});
+
+// Support
+app.get('/support', (req, res) => {
+  res.render('support');
 });
 
 // GET Login
