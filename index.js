@@ -41,13 +41,13 @@ app.get('/message-board', (req, res) => {
 });
 
 // Employee profile - PRIVATE ROUTE
-app.get('/profile', isLoggedIn, (req, res) => {
+app.get('/profile', (req, res) => {
   res.render('profile');
 });
 
 // GET Login
 app.get('/login', async (req, res) => {
-  const loggedInStatus = await api.getIsLoggedIn(req);
+  const loggedInStatus = await api.isLoggedIn(req);
   res.render('login', { isLoggedIn: loggedInStatus });
 });
 
@@ -60,7 +60,6 @@ app.post('/login', async (req, res) => {
       `=== debug: POST /login: email: ${email} -- password: ${password}`
     );
     console.log('=== debug: POST /login: result: ', JSON.stringify(result));
-
     res.redirect('/profile');
   } catch (err) {
     console.log('=== POST login error:', err.message);
