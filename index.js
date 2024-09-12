@@ -3,7 +3,7 @@ import { create } from 'express-handlebars';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
-import { login, getIsLoggedIn } from './src/api/auth.js';
+import api from './src/api/auth.js';
 import { isLoggedIn } from './src/middleware/auth-middleware.js';
 
 const app = express();
@@ -47,7 +47,7 @@ app.get('/profile', isLoggedIn, (req, res) => {
 
 // GET Login
 app.get('/login', async (req, res) => {
-  const loggedInStatus = await getIsLoggedIn(req);
+  const loggedInStatus = await api.getIsLoggedIn(req);
   res.render('login', { isLoggedIn: loggedInStatus });
 });
 
@@ -55,11 +55,12 @@ app.get('/login', async (req, res) => {
 app.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    const result = await login(req, res);
+    const result = await api.login(req, res);
     console.log(
-      '=== debug: POST /login -- result:',
-      JSON.stringify(result, null, 2)
+      `=== debug: POST /login: email: ${email} -- password: ${password}`
     );
+    console.log('=== debug: POST /login: result: ', JSON.stringify(result));
+
     res.redirect('/profile');
   } catch (err) {
     console.log('=== POST login error:', err.message);
@@ -70,7 +71,7 @@ app.post('/login', async (req, res) => {
 // POST Logout
 app.post('/logout', async (req, res) => {
   try {
-    const result = await logout(req, res);
+    const result = await api.logout(req, res);
     console.log(
       '=== debug: POST /logout -- result:',
       JSON.stringify(result, null, 2)
