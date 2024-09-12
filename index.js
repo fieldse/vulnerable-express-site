@@ -2,6 +2,7 @@ import express from 'express';
 import { create } from 'express-handlebars';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import morgan from 'morgan';
 import { login, getIsLoggedIn } from './src/api/auth.js';
 import { isLoggedIn } from './src/middleware/auth-middleware.js';
 
@@ -16,6 +17,7 @@ const hbs = create({
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(morgan('tiny'));
 
 // Set view engine to Handlebars
 app.engine('.hbs', hbs.engine);
