@@ -1,5 +1,7 @@
 import express from 'express';
 import { create } from 'express-handlebars';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import { isLoggedIn } from './src/auth/auth-middleware.js';
 
 const app = express();
@@ -10,6 +12,11 @@ const hbs = create({
   layoutsDir: 'src/layouts/',
 });
 
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+// Set view engine to Handlebars
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 app.set('views', './src/views');
