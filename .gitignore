@@ -4,3 +4,6 @@
 
 # Node
 **/node_modules
+
+# Mac stuff
+.DS_Store
