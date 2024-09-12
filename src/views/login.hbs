@@ -1,9 +1,11 @@
-<div class='my-auto mx-auto w-2/3 text-center h-3/4 flex flex-col justify-top'>
+<div
+  class='my-auto mx-auto sm:w-full md:w-2/3 lg:w-1/2 text-center h-3/4 flex flex-col justify-start'
+>
 
   <form
     action='/login'
     method='POST'
-    class='mt-6 p-12 bg-gray-400 text-white flex flex-col gap-6 rounded-2xl'
+    class='sm:mt-0 lg:mt-24 p-12 bg-gray-400 text-white flex flex-col gap-6 rounded-2xl'
   >
 
     {{#if isLoggedIn}}
@@ -23,21 +25,21 @@
     {{else}}
       <!-- Login form -->
       <h3 class='text-2xl font-extrabold mb-10 mt-4'>Employee login</h3>
-      <div class='mt-8 flex flex-row justify-end'>
-        <label class='flex-1' for='input-email'>Email</label>
+      <div class='mt-8 flex flex-row justify-start items-center'>
+        <label class='w-20 mr-6 grow-0' for='input-email'>Email</label>
         <input
           id='input-email'
-          class='flex-1 py-1 px-4 rounded-sm'
+          class='grow py-1 px-4 rounded-md'
           type='email'
           name='email'
           placeholder='your-email@mail.example.com'
         />
       </div>
-      <div class='flex flex-row justify-start'>
-        <label class='flex-1' for='input-password'>Password</label>
+      <div class='flex flex-row justify-start items-center'>
+        <label class='w-20 mr-6 grow-0' for='input-password'>Password</label>
         <input
           id='input-password'
-          class='flex-1 py-1 px-4 rounded-sm'
+          class='grow py-1 px-4 rounded-md'
           type='password'
           name='password'
         />
