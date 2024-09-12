@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "build": "npx tailwindcss -i ./src/base.css -o ./public/css/style.css",
-    "build:watch": "npx tailwindcss -i ./src/base.css -o ./public/css/style.css --watch",
+    "build:css": "npx tailwindcss -i ./src/base.css -o ./public/css/style.css",
+    "build:css:watch": "npx tailwindcss -i ./src/base.css -o ./public/css/style.css --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
