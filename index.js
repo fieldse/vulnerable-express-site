@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import api from './src/api/auth.js';
+import { PORT } from './src/config.js';
 
 const app = express();
 const hbs = create({
@@ -92,6 +93,6 @@ app.get('/logout', async (req, res) => {
   res.redirect('/login');
 });
 
-app.listen(3000, () => {
-  console.log('listening on http://localhost:3000');
+app.listen(PORT, () => {
+  console.log(`listening on http://localhost:${PORT}`);
 });
