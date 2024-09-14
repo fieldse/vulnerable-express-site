@@ -1,105 +1,46 @@
 import { Router } from 'express';
 const routes = Router();
-import axios from 'axios';
-import aoiUrls from './apiUrls.js';
-import { logErr, logSuccess } from './logging.js';
+import {
+  login,
+  logout,
+  editProfile,
+  getMessageBoard,
+  getProfile,
+  getSupport,
+  newsIndex,
+} from './controllers';
 
 // Home
-routes.get('/', (req, res) => {
-  res.render('home');
-});
+routes.get('/', (req, res) => res.render('home'));
 
 // News
-routes.get('/news', (req, res) => {
-  res.render('news');
-});
+routes.get('/news', newsIndex);
 
 // Message board
-routes.get('/message-board', (req, res) => {
-  res.render('message-board');
-});
+routes.get('/message-board', getMessageBoard);
 
 // Employee profile - PRIVATE ROUTE
-routes.get('/profile', (req, res) => {
-  try {
-    res.render('profile');
-  } catch (err) {
-    logErr(req, err, 'get profile data failed');
-    res.redirect('/404');
-  }
-});
+routes.get('/profile', getProfile);
 
 // GET Edit profile - PRIVATE ROUTE
-routes.get('/profile/edit', (req, res) => {
-  res.render('edit-profile');
-});
+routes.use('/profile/edit', editProfile);
 
 // POST Edit profile - PRIVATE ROUTE
-routes.post('/profile/edit', async (req, res) => {
-  const { id, name, email, password } = req.body;
-  const result = await axios.post(aoiUrls.editProfile(id), {
-    name,
-    email,
-    password,
-  });
-  if (result.status === 200) {
-    const prevUser = req.app.locals.currentUser;
-    req.app.locals.currentUser = { ...prevUser, name, email };
-    logSuccess('updated user profile');
-  }
-  res.render('edit-profile');
-});
+routes.post('/profile/edit', editProfile);
 
 // Support
-routes.get('/support', (req, res) => {
-  res.render('support');
-});
+routes.get('/support', getSupport);
 
 // Logout
-routes.get('/logout', async (req, res) => {
-  try {
-    req.app.locals.isLoggedIn = false;
-  } catch (err) {
-    logErr(req, err);
-  }
-  res.redirect('/');
-});
+routes.get('/logout', logout);
 
 // GET Login
-routes.get('/login', async (req, res) => {
-  res.render('login');
-});
+routes.get('/login', login);
 
 // POST Login
-routes.post('/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const result = await axios.post(aoiUrls.login(), { email, password });
-    const data = result.data;
-    if (result.status !== 200) {
-      throw new Error('login failed: ' + result?.message || 'unknown error');
-    }
-    if (!data?.user) {
-      throw new Error('login failed: user data empty');
-    }
-
-    logSuccess(req, 'login success', data);
-    req.app.locals.isLoggedIn = true;
-    req.app.locals.currentUser = data.user;
-    res.redirect('/profile');
-  } catch (err) {
-    logErr(req, err);
-    res.redirect('/404');
-  }
-});
+routes.post('/login', login);
 
 // 404
-routes.get(['/404', '*'], (req, res) => {
-  var message;
-  if (req.path === '/404') {
-    message = req.params.message || 'An unknown error occurred';
-  }
-  res.render('404', { message: message || 'That page is not found.' });
-});
+routes.get(['/404', '*'], render404);
 
 export default routes;
