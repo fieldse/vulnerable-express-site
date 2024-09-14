@@ -1,8 +1,8 @@
 import { Router } from 'express';
 const routes = Router();
 import axios from 'axios';
-import urls from './apiUrls.js';
-import { logDebug, logErr, logSuccess } from './logging.js';
+import aoiUrls from './apiUrls.js';
+import { logErr, logSuccess } from './logging.js';
 
 // Home
 routes.get('/', (req, res) => {
@@ -37,14 +37,16 @@ routes.get('/profile/edit', (req, res) => {
 // POST Edit profile - PRIVATE ROUTE
 routes.post('/profile/edit', async (req, res) => {
   const { id, name, email, password } = req.body;
-  const result = await axios.post(urls.editProfile, {
-    // TODO -- validate this API route
-    id,
+  const result = await axios.post(aoiUrls.editProfile(id), {
     name,
     email,
     password,
   });
-  logDebug(req, 'result:', result);
+  if (result.status === 200) {
+    const prevUser = req.app.locals.currentUser;
+    req.app.locals.currentUser = { ...prevUser, name, email };
+    logSuccess('updated user profile');
+  }
   res.render('edit-profile');
 });
 
@@ -72,7 +74,7 @@ routes.get('/login', async (req, res) => {
 routes.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    const result = await axios.post(urls.login, { email, password });
+    const result = await axios.post(aoiUrls.login(), { email, password });
     const data = result.data;
     if (result.status !== 200) {
       throw new Error('login failed: ' + result?.message || 'unknown error');
