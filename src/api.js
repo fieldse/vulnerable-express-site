@@ -1,7 +1,7 @@
 // API methods for Vulnerable REST API backend
 
-import { BASE_API_URL } from '../config.js';
-import { logDebug } from '../debug.js';
+import { BASE_API_URL } from './config.js';
+import { logDebug } from './debug.js';
 // import axios from 'axios';
 
 // Login

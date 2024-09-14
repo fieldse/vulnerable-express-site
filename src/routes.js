@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const routes = Router();
-import api from './api/auth.js';
+import api from './api.js';
 import { logDebug, logErr } from './debug.js';
 
 // Home
