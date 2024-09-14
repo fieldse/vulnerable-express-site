@@ -1,0 +1,87 @@
+<div class='my-10 w-2/3 max-w-3xl mx-auto'>
+  <h2 class='text-3xl text-gray-800'>Your Profile</h2>
+
+  <form
+    id='profile-form'
+    class='mt-6 border border-gray-700 rounded-xl text-gray-800 p-8 flex flex-col justify-center gap-y-6 pt-12 pb-8'
+  >
+    <div class='flex flex-row justify-between'>
+      <!-- FIXME: user ID -->
+      <input class='hidden' type='hidden' name='id' value='1' />
+      <label class='flex-1'>Name</label>
+
+      <!-- name -->
+      <input
+        id='name'
+        name='name'
+        class='text-left flex-1'
+        type='text'
+        disabled
+        value='John Smith'
+      />
+    </div>
+
+    <!-- email -->
+    <div class='flex flex-row justify-between'>
+      <label class='flex-1'>email</label>
+      <input
+        id='email'
+        name='email'
+        class='text-left flex-1'
+        type='text'
+        disabled
+        value='john.smith@mail.tafelab.internal'
+      />
+    </div>
+
+    <!-- password -->
+    <div class='flex flex-row justify-between'>
+      <label class='flex-1'>password</label>
+      <input
+        id='password'
+        name='password'
+        class='text-left flex-1'
+        type='password'
+        disabled
+        placeholder='*************'
+      />
+    </div>
+    <span class='flex justify-end'>
+      <a href='/profile/edit'>
+        <button
+          type='button'
+          class='button rounded-md bg-gray-700 text-white px-4 py-2'
+        >Edit</button>
+      </a>
+    </span>
+  </form>
+
+  <div class='mt-6 border border-gray-700 rounded-xl text-gray-800 p-8'>
+    <h2 class='text-2xl mb-8'>Your messages</h2>
+
+    <ul
+      class='mt-8 text-gray-600 font-mono list-disc leading-6 relative left-6'
+    >
+      <li class='my-4'>
+        <span class='block mb-2'>Message from Tony Stark:
+          &lt;tony.stark@mail.tafelab.internal&gt;</span>
+        <span class='block'>Lorem Etiam sapien turpis, semper ut semper sed,
+          porttitor non magna. Phasellus sit amet consectetur est.</span>
+      </li>
+      <li class='my-4'>
+        <span class='block mb-2'>Message from Darth Vader:
+          &lt;darth.vader@mail.tafelab.internal&gt;</span>
+        <span class='block'>uris facilisis, urna vitae convallis posuere, elit
+          tellus placerat diam, a elementum libero ante ac ligula</span>
+      </li>
+      <li class='my-4'>
+        <span class='block mb-2'>Message from Bill Gates:
+          &lt;bill.gates@mail.tafelab.internal&gt;</span>
+        <span class='block'>orci porta eget tempus nulla posuere. Vivamus at
+          lacus nisi</span>
+      </li>
+    </ul>
+
+  </div>
+
+</div>

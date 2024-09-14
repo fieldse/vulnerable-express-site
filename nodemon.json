@@ -1,0 +1,5 @@
+{
+  "ext": "js,mjs,cjs,json,hbs,html",
+  "watch": ["index.js", "src/**/*.js", "src/**/*.hbs"],
+  "verbose": true
+}

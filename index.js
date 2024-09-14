@@ -1,6 +1,10 @@
 import express from 'express';
 import { create } from 'express-handlebars';
-import { isLoggedIn } from './src/auth/auth-middleware.js';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
+import { PORT } from './src/config.js';
+import routes from './src/routes.js';
 
 const app = express();
 const hbs = create({
@@ -10,36 +14,19 @@ const hbs = create({
   layoutsDir: 'src/layouts/',
 });
 
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(morgan('tiny'));
+
+// Set view engine to Handlebars
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 app.set('views', './src/views');
 app.use(express.static('public'));
 
-// Home
-app.get('/', (req, res) => {
-  res.render('home');
-});
-
-// News
-app.get('/news', (req, res) => {
-  res.render('news');
-});
-
-// Message board
-app.get('/message-board', (req, res) => {
-  res.render('message-board');
-});
-
-// Employee profile - PRIVATE ROUTE
-app.get('/profile', isLoggedIn, (req, res) => {
-  res.render('profile');
-});
-
-// Login
-app.get('/login', (req, res) => {
-  res.render('login');
-});
-
-app.listen(3000, () => {
-  console.log('listening on http://localhost:3000');
+// Use router
+app.use('/', routes);
+app.listen(PORT, () => {
+  console.log(`listening on http://localhost:${PORT}`);
 });
