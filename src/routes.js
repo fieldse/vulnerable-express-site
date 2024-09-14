@@ -2,7 +2,7 @@ import { Router } from 'express';
 const routes = Router();
 import axios from 'axios';
 import urls from './apiUrls.js';
-import { logDebug, logErr } from './debug.js';
+import { logDebug, logErr, logSuccess } from './debug.js';
 
 // Home
 routes.get('/', (req, res) => {
@@ -56,11 +56,13 @@ routes.get('/login', async (req, res) => {
 // POST Login
 routes.post('/login', async (req, res) => {
   try {
+    const { email, password } = req.body;
     const result = await axios.post(urls.login, { email, password });
-    logDebug(req, 'API result:', JSON.stringify(result, null, 2));
-    // Fake the login
-    routes.locals.isLoggedIn = true;
-
+    if (result.status !== 200) {
+      throw new Error('login failed: ' + result?.message || 'unknown error');
+    }
+    logSuccess(req, 'login success', result);
+    req.app.locals.isLoggedIn = true;
     res.redirect('/profile');
   } catch (err) {
     logErr(req, err);
@@ -72,8 +74,8 @@ routes.post('/login', async (req, res) => {
 routes.get('/logout', async (req, res) => {
   try {
     const result = await axios.post(urls.logout);
-    logDebug(req, 'API result:', JSON.stringify(result, null, 2));
-    routes.locals.isLoggedIn = false;
+    logDebug(req, 'API result:', result);
+    req.app.locals.isLoggedIn = false;
   } catch (err) {
     logErr(req, err);
   }
