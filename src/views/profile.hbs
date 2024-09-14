@@ -6,8 +6,13 @@
     class='mt-6 border border-gray-700 rounded-xl text-gray-800 p-8 flex flex-col justify-center gap-y-6 pt-12 pb-8'
   >
     <div class='flex flex-row justify-between'>
-      <!-- FIXME: user ID -->
-      <input class='hidden' type='hidden' name='id' value='1' />
+      <!-- User ID -->
+      <input
+        class='hidden'
+        type='hidden'
+        name='id'
+        value='{{currentUser.id}}'
+      />
       <label class='flex-1'>Name</label>
 
       <!-- name -->
@@ -17,7 +22,7 @@
         class='text-left flex-1'
         type='text'
         disabled
-        value='John Smith'
+        value='{{currentUser.name}}'
       />
     </div>
 
@@ -30,7 +35,7 @@
         class='text-left flex-1'
         type='text'
         disabled
-        value='john.smith@mail.tafelab.internal'
+        value='{{currentUser.email}}'
       />
     </div>
 
