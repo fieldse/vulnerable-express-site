@@ -22,13 +22,6 @@ routes.get('/message-board', (req, res) => {
 // Employee profile - PRIVATE ROUTE
 routes.get('/profile', (req, res) => {
   try {
-    // Assumes the current user is logged in, and trust the cookie to accurately identify the user by ID
-    const cookie = req.cookies.user;
-    if (!cookie) {
-      throw new Error('not logged in!');
-    }
-    const cookieData = JSON.parse(cookie);
-    const userId = cookieData?.user?.id; // maybe don't need to do this here, since we store the data at login
     res.render('profile');
   } catch (err) {
     logErr(req, err, 'get profile data failed');
@@ -60,6 +53,16 @@ routes.get('/support', (req, res) => {
   res.render('support');
 });
 
+// Logout
+routes.get('/logout', async (req, res) => {
+  try {
+    req.app.locals.isLoggedIn = false;
+  } catch (err) {
+    logErr(req, err);
+  }
+  res.redirect('/');
+});
+
 // GET Login
 routes.get('/login', async (req, res) => {
   res.render('login');
@@ -78,9 +81,9 @@ routes.post('/login', async (req, res) => {
       throw new Error('login failed: user data empty');
     }
 
-    logSuccess(req, 'login success', result);
+    logSuccess(req, 'login success', data);
     req.app.locals.isLoggedIn = true;
-    req.app.currentUser = data.user;
+    req.app.locals.currentUser = data.user;
     res.redirect('/profile');
   } catch (err) {
     logErr(req, err);
@@ -88,29 +91,13 @@ routes.post('/login', async (req, res) => {
   }
 });
 
-// Logout
-routes.get('/logout', async (req, res) => {
-  try {
-    const result = await axios.post(urls.logout);
-    logDebug(req, 'API result:', result);
-    req.app.locals.isLoggedIn = false;
-  } catch (err) {
-    logErr(req, err);
-  }
-
-  res.redirect('/login');
-});
-
 // 404
-routes.get(['/404'], (req, res) => {
-  const message = req.params.message || 'unknown error';
-  res.render('404', { message });
-});
-
-// Catch-all
-routes.get(['*'], (req, res) => {
-  const message = req.params.message || 'That page is not found.';
-  res.render('404', { message });
+routes.get(['/404', '*'], (req, res) => {
+  var message;
+  if (req.path === '/404') {
+    message = req.params.message || 'An unknown error occurred';
+  }
+  res.render('404', { message: message || 'That page is not found.' });
 });
 
 export default routes;
