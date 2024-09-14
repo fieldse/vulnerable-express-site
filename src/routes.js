@@ -1,6 +1,7 @@
 import { Router } from 'express';
 const routes = Router();
-import api from './api.js';
+import axios from 'axios';
+import urls from './apiUrls.js';
 import { logDebug, logErr } from './debug.js';
 
 // Home
@@ -29,10 +30,16 @@ routes.get('/profile/edit', (req, res) => {
 });
 
 // POST Edit profile - PRIVATE ROUTE
-routes.post('/profile/edit', (req, res) => {
+routes.post('/profile/edit', async (req, res) => {
   const { id, name, email, password } = req.body;
-  // TODO -- make this post somewhere
-  logDebug(req, JSON.stringify({ id, name, email, password }));
+  const result = await axios.post(urls.editProfile, {
+    // TODO -- validate this API route
+    id,
+    name,
+    email,
+    password,
+  });
+  logDebug(req, 'result:', result);
   res.render('edit-profile');
 });
 
@@ -49,14 +56,14 @@ routes.get('/login', async (req, res) => {
 // POST Login
 routes.post('/login', async (req, res) => {
   try {
-    const result = await api.login(req, res); // TODO -- make this actually post somewhere
+    const result = await axios.post(urls.login, { email, password });
     logDebug(req, 'API result:', JSON.stringify(result, null, 2));
     // Fake the login
     routes.locals.isLoggedIn = true;
 
     res.redirect('/profile');
   } catch (err) {
-    logErr('post', '/login', err);
+    logErr(req, err);
     res.redirect('/login');
   }
 });
@@ -64,7 +71,7 @@ routes.post('/login', async (req, res) => {
 // Logout
 routes.get('/logout', async (req, res) => {
   try {
-    const result = await api.logout(req, res);
+    const result = await axios.post(urls.logout);
     logDebug(req, 'API result:', JSON.stringify(result, null, 2));
     routes.locals.isLoggedIn = false;
   } catch (err) {

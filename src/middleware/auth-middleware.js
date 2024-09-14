@@ -1,9 +1,9 @@
 // Auth middleware for login/logout
-import api from '../api.js';
 
 // Middleware for login-required pages
 export const isLoggedIn = async (req, res, next) => {
-  var isLoggedIn = await api.isLoggedIn(req, res); // this currently just checks for a cookie
+  // Placeholder for getting logged in status
+  const isLoggedIn = !!req.cookies.user; // This simply checks if _any_ cookie named 'user' exists
   if (!isLoggedIn) {
     res.redirect(301, '/login');
   }
