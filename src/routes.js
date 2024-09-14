@@ -2,7 +2,7 @@ import { Router } from 'express';
 const routes = Router();
 import axios from 'axios';
 import urls from './apiUrls.js';
-import { logDebug, logErr, logSuccess } from './debug.js';
+import { logDebug, logErr, logSuccess } from './logging.js';
 
 // Home
 routes.get('/', (req, res) => {
@@ -21,7 +21,19 @@ routes.get('/message-board', (req, res) => {
 
 // Employee profile - PRIVATE ROUTE
 routes.get('/profile', (req, res) => {
-  res.render('profile');
+  try {
+    // Assumes the current user is logged in, and trust the cookie to accurately identify the user by ID
+    const cookie = req.cookies.user;
+    if (!cookie) {
+      throw new Error('not logged in!');
+    }
+    const cookieData = JSON.parse(cookie);
+    const userId = cookieData?.user?.id; // maybe don't need to do this here, since we store the data at login
+    res.render('profile');
+  } catch (err) {
+    logErr(req, err, 'get profile data failed');
+    res.redirect('/404');
+  }
 });
 
 // GET Edit profile - PRIVATE ROUTE
@@ -58,15 +70,21 @@ routes.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     const result = await axios.post(urls.login, { email, password });
+    const data = result.data;
     if (result.status !== 200) {
       throw new Error('login failed: ' + result?.message || 'unknown error');
     }
+    if (!data?.user) {
+      throw new Error('login failed: user data empty');
+    }
+
     logSuccess(req, 'login success', result);
     req.app.locals.isLoggedIn = true;
+    req.app.currentUser = data.user;
     res.redirect('/profile');
   } catch (err) {
     logErr(req, err);
-    res.redirect('/login');
+    res.redirect('/404');
   }
 });
 
@@ -81,6 +99,18 @@ routes.get('/logout', async (req, res) => {
   }
 
   res.redirect('/login');
+});
+
+// 404
+routes.get(['/404'], (req, res) => {
+  const message = req.params.message || 'unknown error';
+  res.render('404', { message });
+});
+
+// Catch-all
+routes.get(['*'], (req, res) => {
+  const message = req.params.message || 'That page is not found.';
+  res.render('404', { message });
 });
 
 export default routes;
