@@ -1,13 +1,18 @@
 // Auth methods
-import { logSuccess, logErr } from '../logging';
+import { BASE_API_URL } from '../config.js';
+import { logSuccess, logErr } from '../logging.js';
+import axios from 'axios';
 
 // Login handler
 export async function login(req, res) {
   // Handle POST login
-  if (req.method === 'post') {
+  if (req.method === 'POST') {
     try {
       const { email, password } = req.body;
-      const result = await axios.post(aoiUrls.login(), { email, password });
+      const result = await axios.post(BASE_API_URL + '/login', {
+        email,
+        password,
+      });
       const data = result.data;
       if (result.status !== 200) {
         throw new Error('login failed: ' + result?.message || 'unknown error');

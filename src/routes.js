@@ -8,7 +8,8 @@ import {
   getProfile,
   getSupport,
   newsIndex,
-} from './controllers';
+  render404,
+} from './controllers/index.js';
 
 // Home
 routes.get('/', (req, res) => res.render('home'));
@@ -41,6 +42,9 @@ routes.get('/login', login);
 routes.post('/login', login);
 
 // 404
-routes.get(['/404', '*'], render404);
+routes.get('/404', render404);
+
+// Catchall / unhandled
+routes.all('*', render404);
 
 export default routes;
