@@ -3,11 +3,18 @@
 
   <form
     id='profile-form'
+    action='/profile/edit'
+    method='POST'
     class='mt-6 border border-gray-700 bg-white rounded-xl text-gray-800 p-8 flex flex-col justify-center gap-y-6 pt-12 pb-8'
   >
     <div class='flex flex-row justify-between'>
-      <!-- FIXME: user ID -->
-      <input class='hidden' type='hidden' name='id' value='1' />
+      <!-- User ID -->
+      <input
+        class='hidden'
+        type='hidden'
+        name='id'
+        value='{{currentUser.id}}'
+      />
       <label class='flex-1'>Name</label>
 
       <!-- name -->
@@ -16,7 +23,7 @@
         name='name'
         class='text-left flex-1 border border-gray-700 text-gray-700 py-2 px-4 rounded-md'
         type='text'
-        value='John Smith'
+        value='{{currentUser.name}}'
       />
     </div>
 
@@ -28,7 +35,7 @@
         name='email'
         class='text-left flex-1 border border-gray-700 text-gray-700 py-2 px-4 rounded-md'
         type='text'
-        value='john.smith@mail.tafelab.internal'
+        value='{{currentUser.email}}'
       />
     </div>
 
