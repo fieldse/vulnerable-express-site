@@ -1,86 +1,50 @@
 import { Router } from 'express';
 const routes = Router();
-import axios from 'axios';
-import urls from './apiUrls.js';
-import { logDebug, logErr, logSuccess } from './debug.js';
+import {
+  login,
+  logout,
+  editProfile,
+  getMessageBoard,
+  getProfile,
+  getSupport,
+  newsIndex,
+  render404,
+} from './controllers/index.js';
 
 // Home
-routes.get('/', (req, res) => {
-  res.render('home');
-});
+routes.get('/', (req, res) => res.render('home'));
 
 // News
-routes.get('/news', (req, res) => {
-  res.render('news');
-});
+routes.get('/news', newsIndex);
 
 // Message board
-routes.get('/message-board', (req, res) => {
-  res.render('message-board');
-});
+routes.get('/message-board', getMessageBoard);
 
 // Employee profile - PRIVATE ROUTE
-routes.get('/profile', (req, res) => {
-  res.render('profile');
-});
+routes.get('/profile', getProfile);
 
 // GET Edit profile - PRIVATE ROUTE
-routes.get('/profile/edit', (req, res) => {
-  res.render('edit-profile');
-});
+routes.use('/profile/edit', editProfile);
 
 // POST Edit profile - PRIVATE ROUTE
-routes.post('/profile/edit', async (req, res) => {
-  const { id, name, email, password } = req.body;
-  const result = await axios.post(urls.editProfile, {
-    // TODO -- validate this API route
-    id,
-    name,
-    email,
-    password,
-  });
-  logDebug(req, 'result:', result);
-  res.render('edit-profile');
-});
+routes.post('/profile/edit', editProfile);
 
 // Support
-routes.get('/support', (req, res) => {
-  res.render('support');
-});
-
-// GET Login
-routes.get('/login', async (req, res) => {
-  res.render('login');
-});
-
-// POST Login
-routes.post('/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const result = await axios.post(urls.login, { email, password });
-    if (result.status !== 200) {
-      throw new Error('login failed: ' + result?.message || 'unknown error');
-    }
-    logSuccess(req, 'login success', result);
-    req.app.locals.isLoggedIn = true;
-    res.redirect('/profile');
-  } catch (err) {
-    logErr(req, err);
-    res.redirect('/login');
-  }
-});
+routes.get('/support', getSupport);
 
 // Logout
-routes.get('/logout', async (req, res) => {
-  try {
-    const result = await axios.post(urls.logout);
-    logDebug(req, 'API result:', result);
-    req.app.locals.isLoggedIn = false;
-  } catch (err) {
-    logErr(req, err);
-  }
+routes.get('/logout', logout);
 
-  res.redirect('/login');
-});
+// GET Login
+routes.get('/login', login);
+
+// POST Login
+routes.post('/login', login);
+
+// 404
+routes.get('/404', render404);
+
+// Catchall / unhandled
+routes.all('*', render404);
 
 export default routes;

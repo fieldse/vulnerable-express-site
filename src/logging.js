@@ -1,4 +1,5 @@
 // Logging functions for debugging requests
+import { DEBUG } from './config.js';
 
 export const logSuccess = (req, msg, ...opts) => {
   console.log(
@@ -8,10 +9,12 @@ export const logSuccess = (req, msg, ...opts) => {
 };
 
 export const logDebug = (req, msg, ...opts) => {
-  console.log(
-    `=== [DEBUG][${req.method.toUpperCase()} ${req.path}] ${msg}`,
-    ...opts
-  );
+  if (DEBUG) {
+    console.log(
+      `=== [DEBUG][${req.method.toUpperCase()} ${req.path}] ${msg}`,
+      ...opts
+    );
+  }
 };
 
 export const logErr = (req, err) => {

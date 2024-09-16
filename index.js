@@ -3,7 +3,7 @@ import { create } from 'express-handlebars';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
-import { PORT } from './src/config.js';
+import { PORT, DEBUG } from './src/config.js';
 import routes from './src/routes.js';
 
 const app = express();
@@ -18,6 +18,7 @@ const hbs = create({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('tiny'));
+app.locals.isDebug = DEBUG;
 
 // Set view engine to Handlebars
 app.engine('.hbs', hbs.engine);
@@ -27,6 +28,13 @@ app.use(express.static('public'));
 
 // Use router
 app.use('/', routes);
+
+// error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
 app.listen(PORT, () => {
   console.log(`listening on http://localhost:${PORT}`);
 });

@@ -1,0 +1,18 @@
+<div class='my-10 w-2/3 max-w-3xl mx-auto flex flex-col justify-center'>
+  <h1 class='text-6xl text-gray-800 text-center'>404 - Something went wrong</h1>
+
+  <div class='my-24'>
+    <h2 class='text-3xl'>Something went wrong.</h2>
+    {{#if message}}
+      <div class='mt-20'>
+        <h3 class='text-xl italic'>Error message:</h3>
+        <pre
+          class='font-mono my-4 bg-gray-300 p-12 rounded-xl text-sm'
+        >{{message}}</pre>
+      </div>
+    {{/if}}
+  </div>
+  <div class='text-2xl'>Please try again later or
+    <a href='/support' class='text-blue-400'>contact support.</a></div>
+
+</div>
