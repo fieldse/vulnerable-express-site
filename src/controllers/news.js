@@ -1,5 +1,4 @@
 // Methods for news
-import axios from 'axios';
 import { logDebug } from '../logging.js';
 import api from '../api.js';
 

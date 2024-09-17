@@ -52,6 +52,19 @@
         placeholder='*************'
       />
     </div>
+
+    <!-- role -->
+    <div class='flex flex-row justify-between'>
+      <label class='flex-1'>role</label>
+      <input
+        id='role'
+        class='text-left flex-1 text-gray-700'
+        type='text'
+        value='{{currentUser.role}}'
+        disabled
+      />
+    </div>
+
     <span class='flex justify-end'>
       <a href='/profile/edit'>
         <button
