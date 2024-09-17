@@ -3,6 +3,7 @@ const routes = Router();
 import {
   login,
   logout,
+  adminIndex,
   editProfile,
   getMessageBoard,
   getProfile,
@@ -13,6 +14,9 @@ import {
 
 // Home
 routes.get('/', (req, res) => res.render('home'));
+
+// Admin
+routes.get('/admin', adminIndex);
 
 // News
 routes.get('/news', newsIndex);
