@@ -10,7 +10,7 @@ const app = express();
 const hbs = create({
   defaultLayout: 'main',
   extname: '.hbs',
-  partialsDir: 'src/views/',
+  partialsDir: 'src/views/partials/',
   layoutsDir: 'src/layouts/',
 });
 
