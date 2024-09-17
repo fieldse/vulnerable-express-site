@@ -1,8 +1,6 @@
 // Auth methods
-import { BASE_API_URL } from '../config.js';
 import { logSuccess, logErr } from '../logging.js';
-import axios from 'axios';
-import apiUrls from '../apiUrls.js';
+import api from '../api.js';
 
 // Login handler
 export async function login(req, res) {
@@ -10,10 +8,7 @@ export async function login(req, res) {
   if (req.method === 'POST') {
     try {
       const { email, password } = req.body;
-      const result = await axios.post(apiUrls.login, {
-        email,
-        password,
-      });
+      const result = await api.login(email, password);
       const data = result.data;
       if (result.status !== 200) {
         throw new Error('login failed: ' + result?.message || 'unknown error');
@@ -37,7 +32,7 @@ export async function login(req, res) {
 // Log out and redirect to home
 export async function logout(req, res) {
   try {
-    await axios.post(apiUrls.logout);
+    await api.logout();
     req.app.locals.isLoggedIn = false;
   } catch (err) {
     logErr(req, err);
