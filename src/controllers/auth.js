@@ -20,6 +20,8 @@ export async function login(req, res) {
       logSuccess(req, 'login success', data);
       req.app.locals.isLoggedIn = true;
       req.app.locals.currentUser = data.user;
+      req.app.locals.isAdmin = data.user?.role == 'admin';
+
       return res.redirect('/profile');
     } catch (err) {
       logErr(req, err);
