@@ -2,6 +2,7 @@
 import { BASE_API_URL } from '../config.js';
 import { logSuccess, logErr } from '../logging.js';
 import axios from 'axios';
+import apiUrls from '../apiUrls.js';
 
 // Login handler
 export async function login(req, res) {
@@ -9,7 +10,7 @@ export async function login(req, res) {
   if (req.method === 'POST') {
     try {
       const { email, password } = req.body;
-      const result = await axios.post(BASE_API_URL + '/login', {
+      const result = await axios.post(apiUrls.login, {
         email,
         password,
       });
@@ -36,6 +37,7 @@ export async function login(req, res) {
 // Log out and redirect to home
 export async function logout(req, res) {
   try {
+    await axios.post(apiUrls.logout);
     req.app.locals.isLoggedIn = false;
   } catch (err) {
     logErr(req, err);
