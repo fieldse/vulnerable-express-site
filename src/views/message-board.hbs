@@ -1,28 +1,18 @@
-<h2 class='text-3xl text-gray-800'>News and announcements</h2>
+<h2 class='text-3xl text-gray-800'>Message board</h2>
 
 <div class='my-10'>
-  <p class='text-xl'>Message board</p>
-
-  <div class='mt-6 border border-gray-700 rounded-xl text-gray-800 p-8'>
-    <h2 class='text-2xl mb-8'>
-      Message from John Smith &lt;john.smith@mail.tafelab.internal&gt;
+  {{#if messages}}
+    {{#each messages}}
+      <div class='my-6 border border-gray-700 rounded-xl text-gray-800 p-8'>
+        <h2 class='text-2xl mb-6'>
+          {{this.title}}
+        </h2>
+        <p>{{this.content}}</p>
+      </div>
+    {{/each}}
+  {{else}}
+    <h2 class='text-xl mb-8 text-red-500'>
+      No messages
     </h2>
-    <p>Sed quis consequat massa. Aenean bibendum justo ut risus venenatis ac
-      vulputate mi vehicula. Aenean placerat, velit eget rutrum semper, sem
-      nulla rutrum neque, nec consectetur est dui ornar.</p>
-
-    <p>Lorem. Etiam sapien turpis, semper ut semper sed, porttitor non magna.
-      Phasellus sit amet consectetur est. Vestibulum eu nunc at odio egestas
-      suscipit. Praesent no.</p>
-    <p>Neque vitae est aliquam vulputate vitae at est. Mauris varius risus et
-      orci porta eget tempus nulla posuere. Vivamus at lacus nisi. Pellentesque
-      ut felis lectus, non sodales nibh. Vestibulum dignissim fermentum diam,
-      quis imperdiet magna ultricies faucibus. Vestibulum suscipit commodo ante
-      quis tincidunt. Mauris facilisis, urna vitae convallis posuere, elit
-      tellus placerat diam, a elementum libero ante ac ligula. Quisque at augu.</p>
-    <p>Quis tortor euismod tincidunt nec id magna. Phasellus at urna nisl. Fusce
-      dapibus fermentum lectus, et tempus quam venenatis in. Integer malesuada
-      consectetur ligula nec cursus. Cum sociis natoque penatibu.</p>
-  </div>
-
+  {{/if}}
 </div>
