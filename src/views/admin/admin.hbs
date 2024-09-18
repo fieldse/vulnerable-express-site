@@ -13,12 +13,14 @@
             <span class='ml-3'> {{this.email}} </span>
           </span>
           <span>
-            <button
-              class='bg-blue-400 rounded-lg text-sm px-2 min-w-14 h-8 text-white'
-            >edit</button>
+            <a href='/admin/edit-user/{{this.id}}'>
+              <button
+                class='bg-blue-400 rounded-lg text-sm px-2 min-w-14 h-8 text-white'
+              >Edit</button>
+            </a>
             <button
               class='bg-red-400 rounded-lg text-sm px-2 min-w-14 h-8 ml-3 text-white'
-            >delete</button>
+            >Delete</button>
           </span>
         </li>
       {{/each}}
@@ -36,12 +38,14 @@
             <span class='ml-3'> {{this.title}} </span>
           </span>
           <span>
-            <button
-              class='bg-blue-400 rounded-lg text-sm px-2 min-w-14 h-8 text-white'
-            >edit</button>
+            <a href='/admin/edit-news/{{this.id}}'>
+              <button
+                class='bg-blue-400 rounded-lg text-sm px-2 min-w-14 h-8 text-white'
+              >Edit</button>
+            </a>
             <button
               class='bg-red-400 rounded-lg text-sm px-2 min-w-14 h-8 ml-3 text-white'
-            >delete</button>
+            >Delete</button>
           </span>
         </li>
       {{/each}}
@@ -59,12 +63,14 @@
             <span class='ml-3'> {{this.title}} </span>
           </span>
           <span>
-            <button
-              class='bg-blue-400 rounded-lg text-sm px-2 min-w-14 h-8 text-white'
-            >edit</button>
+            <a href='/admin/edit-message/{{this.id}}'>
+              <button
+                class='bg-blue-400 rounded-lg text-sm px-2 min-w-14 h-8 text-white'
+              >Edit</button>
+            </a>
             <button
               class='bg-red-400 rounded-lg text-sm px-2 min-w-14 h-8 ml-3 text-white'
-            >delete</button>
+            >Delete</button>
           </span>
         </li>
       {{/each}}

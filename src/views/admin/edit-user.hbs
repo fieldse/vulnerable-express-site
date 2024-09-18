@@ -1,4 +1,99 @@
-<div id='edit-user'>
-  <h1>Edit user</h1>
-  <p>Placeholder</p>
+<div id='edit-user' class='w-2/3 max-w-3xl mx-auto'>
+  <div class='text-left absolute left-8'>
+    <a href='/admin'>
+      <button
+        type='button'
+        class='button rounded-md bg-gray-400 text-white px-4 py-2'
+      >&#8592; Admin</button>
+    </a>
+  </div>
+
+  <h2 class='text-3xl text-gray-800'>Edit user</h2>
+
+  <h2 class='text-2xl mt-16 text-gray-800'>Editing: {{currentUser.email}}</h2>
+
+  <form
+    id='profile-form'
+    class='mt-6 border bg-white border-gray-700 rounded-xl text-gray-800 flex flex-col justify-center gap-y-6 py-12 px-24'
+    action="/admin/edit-user/{{currentUser.id}}"
+    method="post"
+  >
+
+    <!-- User ID -->
+    <div class='flex flex-row justify-between'>
+      <label class='flex-1'>ID</label>
+      <input
+        class='px-4 py-1 rounded-md flex-1'
+        type='number'
+        name='id'
+        value='{{currentUser.id}}'
+        disabled
+      />
+    </div>
+
+    <div class='flex flex-row justify-between'>
+      <label class='flex-1'>Name</label>
+
+      <!-- name -->
+      <input
+        id='name'
+        name='name'
+        class='px-4 py-1 rounded-md border border-gray-500 flex-1'
+        type='text'
+        value='{{currentUser.name}}'
+      />
+    </div>
+
+    <!-- email -->
+    <div class='flex flex-row justify-between'>
+      <label class='flex-1'>email</label>
+      <input
+        id='email'
+        name='email'
+        class='px-4 py-1 rounded-md border border-gray-500 flex-1'
+        type='text'
+        value='{{currentUser.email}}'
+      />
+    </div>
+
+    <!-- password -->
+    <div class='flex flex-row justify-between'>
+      <label class='flex-1'>password</label>
+      <input
+        id='password'
+        name='password'
+        class='px-4 py-1 rounded-md border border-gray-500 flex-1'
+        type='password'
+        placeholder='*************'
+      />
+    </div>
+
+    <!-- role -->
+    <div class='flex flex-row justify-between'>
+      <label class='flex-1'>role</label>
+      <select
+        id='role'
+        name='role'
+        class='px-4 py-1 rounded-md border border-gray-500 flex-1 text-gray-700'
+        value='{{currentUser.role}}'
+      >
+        <option value='admin' {{#if (eq currentUser.role 'admin')}}selected{{/if}}>admin</option>
+        <option value='normal' {{#if (eq currentUser.role 'normal')}}selected{{/if}}>normal</option>
+      </select>
+    </div>
+
+    <span class='flex flex-row justify-end gap-x-4 mt-8'>
+      <button
+        type='submit'
+        class='button rounded-md bg-gray-700 text-white px-4 py-2'
+      >Save</button>
+      <a href='/admin'>
+        <button
+          type='button'
+          class='button rounded-md border border-gray-700 text-gray-700 px-4 py-2'
+        >Cancel</button>
+      </a>
+    </span>
+  </form>
+
 </div>

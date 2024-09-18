@@ -12,6 +12,12 @@ const hbs = create({
   extname: '.hbs',
   partialsDir: 'src/views/partials/',
   layoutsDir: 'src/layouts/',
+  helpers: {
+    // equality helper
+    eq(a, b) {
+      return a == b;
+    },
+  },
 });
 
 // Middleware
