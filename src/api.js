@@ -81,6 +81,11 @@ const getUsers = async () => {
   return axios.get(urls.users);
 };
 
+// Get single user
+const getUser = async (id) => {
+  return axios.get(urls.user(id));
+};
+
 export default {
   login,
   logout,
@@ -93,5 +98,6 @@ export default {
   deleteMessage,
   getMessages,
   getNews,
+  getUser,
   getUsers,
 };

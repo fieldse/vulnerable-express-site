@@ -1,5 +1,5 @@
 // Admin controller
-import { logDebug } from '../logging.js';
+import { logDebug, logErr } from '../logging.js';
 import api from '../api.js';
 
 // Admin dashboard
@@ -35,5 +35,15 @@ export async function adminEditMessage(req, res) {
 
 // Admin -- Edit user view
 export async function adminEditUser(req, res) {
-  res.render('admin/edit-user');
+  try {
+    const { id } = req.params;
+    const { data } = await api.getUser(id);
+    if (!data?.user) {
+      throw new Error('user not found');
+    }
+    res.render('admin/edit-user', { user: data.user });
+  } catch (err) {
+    logErr(req, err);
+    return res.redirect('/404');
+  }
 }

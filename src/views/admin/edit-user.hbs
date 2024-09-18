@@ -10,14 +10,14 @@
 
   <h2 class='text-3xl text-gray-800'>Edit user</h2>
 
-  <h2 class='text-2xl mt-16 text-gray-800'>Editing: {{currentUser.email}}</h2>
 
   <form
     id='profile-form'
     class='mt-6 border bg-white border-gray-700 rounded-xl text-gray-800 flex flex-col justify-center gap-y-6 py-12 px-24'
-    action="/admin/edit-user/{{currentUser.id}}"
+    action="/admin/edit-user/{{user.id}}"
     method="post"
   >
+  <h2 class='text-2xl mb-8 text-gray-800 font-semibold'>{{user.email}}</h2>
 
     <!-- User ID -->
     <div class='flex flex-row justify-between'>
@@ -26,7 +26,7 @@
         class='px-4 py-1 rounded-md flex-1'
         type='number'
         name='id'
-        value='{{currentUser.id}}'
+        value='{{user.id}}'
         disabled
       />
     </div>
@@ -40,7 +40,7 @@
         name='name'
         class='px-4 py-1 rounded-md border border-gray-500 flex-1'
         type='text'
-        value='{{currentUser.name}}'
+        value='{{user.name}}'
       />
     </div>
 
@@ -52,7 +52,7 @@
         name='email'
         class='px-4 py-1 rounded-md border border-gray-500 flex-1'
         type='text'
-        value='{{currentUser.email}}'
+        value='{{user.email}}'
       />
     </div>
 
@@ -75,10 +75,10 @@
         id='role'
         name='role'
         class='px-4 py-1 rounded-md border border-gray-500 flex-1 text-gray-700'
-        value='{{currentUser.role}}'
+        value='{{user.role}}'
       >
-        <option value='admin' {{#if (eq currentUser.role 'admin')}}selected{{/if}}>admin</option>
-        <option value='normal' {{#if (eq currentUser.role 'normal')}}selected{{/if}}>normal</option>
+        <option value='admin' {{#if (eq user.role 'admin')}}selected{{/if}}>admin</option>
+        <option value='normal' {{#if (eq user.role 'normal')}}selected{{/if}}>normal</option>
       </select>
     </div>
 
