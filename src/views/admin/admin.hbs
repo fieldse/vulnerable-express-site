@@ -18,7 +18,10 @@
                 class='bg-blue-400 rounded-lg text-sm px-2 min-w-14 h-8 text-white'
               >Edit</button>
             </a>
-            <a href='/admin/delete-user/{{this.id}}'>
+            <a
+              href='/admin/delete-user/{{this.id}}'
+              onclick="return confirm('Delete this record?');"
+            >
               <button
                 class='bg-red-400 rounded-lg text-sm px-2 min-w-14 h-8 ml-3 text-white'
               >Delete</button>
