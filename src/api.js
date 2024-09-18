@@ -1,5 +1,7 @@
 // Backend API routes
 import axios from 'axios';
+axios.defaults.withCredentials = true;
+
 import { BASE_API_URL } from './config.js';
 
 const urls = {

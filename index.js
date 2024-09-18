@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import { PORT, DEBUG } from './src/config.js';
 import routes from './src/routes.js';
+import { loadCookies } from './src/middleware/auth-middleware.js';
 
 const app = express();
 const hbs = create({
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('tiny'));
 app.locals.isDebug = DEBUG;
+app.use(loadCookies);
 
 // Set view engine to Handlebars
 app.engine('.hbs', hbs.engine);

@@ -9,19 +9,23 @@ export async function login(req, res) {
     try {
       const { email, password } = req.body;
       const result = await api.login(email, password);
-      const data = result.data;
       if (result.status !== 200) {
         throw new Error('login failed: ' + result?.message || 'unknown error');
       }
-      if (!data?.user) {
+      const { user } = result.data;
+      if (!user) {
         throw new Error('login failed: user data empty');
       }
 
-      logSuccess(req, 'login success', data);
-      req.app.locals.isLoggedIn = true;
-      req.app.locals.currentUser = data.user;
-      req.app.locals.isAdmin = data.user?.role == 'admin';
+      // Store to cookie
+      res.cookie('user', JSON.stringify(user));
 
+      // Store locals
+      req.app.locals.isLoggedIn = true;
+      req.app.locals.currentUser = user;
+      req.app.locals.isAdmin = user?.role == 'admin';
+
+      logSuccess(req, 'login success', user);
       return res.redirect('/profile');
     } catch (err) {
       logErr(req, err);
@@ -36,6 +40,9 @@ export async function logout(req, res) {
   try {
     await api.logout();
     req.app.locals.isLoggedIn = false;
+    req.app.locals.currentUser = undefined;
+    req.app.locals.isAdmin = undefined;
+    res.clearCookie('user');
   } catch (err) {
     logErr(req, err);
   }
