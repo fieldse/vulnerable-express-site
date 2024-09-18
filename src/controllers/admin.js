@@ -23,17 +23,36 @@ export async function adminIndex(req, res) {
   });
 }
 
-// Admin -- Edit news view
+// Admin -- Edit news
 export async function adminEditNews(req, res) {
   res.render('admin/edit-news');
 }
 
-// Admin -- Edit message view
+// Admin -- Edit message
 export async function adminEditMessage(req, res) {
   res.render('admin/edit-message');
 }
 
-// Admin -- Edit user view
+// Admin -- Add user
+export async function adminAddUser(req, res) {
+  try {
+    if (req.method === 'POST') {
+      const { name, email, password, role } = req.body;
+      if (!name || !email || !password || !role) {
+        throw new Error('name, email, password, role fields must not be empty');
+      }
+      const userId = await api.addUser(name, email, password, role);
+      logSuccess(req, 'created user: ' + userId);
+      return res.redirect('/admin');
+    }
+    res.render('admin/add-user');
+  } catch (err) {
+    logErr(req, err);
+    return res.redirect('/404');
+  }
+}
+
+// Admin -- Edit user
 export async function adminEditUser(req, res) {
   try {
     // Handle POST login

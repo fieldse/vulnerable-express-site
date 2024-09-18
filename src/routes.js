@@ -6,6 +6,7 @@ import {
   adminIndex,
   adminEditMessage,
   adminEditNews,
+  adminAddUser,
   adminEditUser,
   adminDeleteUser,
   editProfile,
@@ -27,6 +28,12 @@ routes.get('/admin/edit-news/:id', adminEditNews);
 
 // Admin -- Edit message
 routes.get('/admin/edit-message/:id', adminEditMessage);
+
+// Admin -- Add user
+routes.get('/admin/add-user', adminAddUser);
+
+// Admin -- POST Add user
+routes.post('/admin/add-user', adminAddUser);
 
 // Admin -- Edit user
 routes.get('/admin/edit-user/:id', adminEditUser);
