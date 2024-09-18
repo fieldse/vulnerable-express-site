@@ -7,6 +7,7 @@ import {
   adminEditMessage,
   adminEditNews,
   adminEditUser,
+  adminDeleteUser,
   editProfile,
   getMessageBoard,
   getProfile,
@@ -29,6 +30,12 @@ routes.get('/admin/edit-message/:id', adminEditMessage);
 
 // Admin -- Edit user
 routes.get('/admin/edit-user/:id', adminEditUser);
+
+// Admin -- POST Edit user
+routes.post('/admin/edit-user/:id', adminEditUser);
+
+// Admin -- Delete user
+routes.get('/admin/delete-user/:id', adminDeleteUser); // Super insecure! Directly destroy user without checks
 
 // News
 routes.get('/news', newsIndex);

@@ -1,5 +1,5 @@
 // Admin controller
-import { logDebug, logErr } from '../logging.js';
+import { logDebug, logErr, logSuccess } from '../logging.js';
 import api from '../api.js';
 
 // Admin dashboard
@@ -36,12 +36,31 @@ export async function adminEditMessage(req, res) {
 // Admin -- Edit user view
 export async function adminEditUser(req, res) {
   try {
-    const { id } = req.params;
-    const { data } = await api.getUser(id);
-    if (!data?.user) {
-      throw new Error('user not found');
+    // Handle POST login
+    if (req.method === 'POST') {
+      // FIXME: do something here
+    } else {
+      const { id } = req.params;
+      const { data } = await api.getUser(id);
+      if (!data?.user) {
+        throw new Error('user not found');
+      }
+      res.render('admin/edit-user', { user: data.user });
     }
-    res.render('admin/edit-user', { user: data.user });
+  } catch (err) {
+    logErr(req, err);
+    return res.redirect('/404');
+  }
+}
+
+// Admin -- Delete user action
+export async function adminDeleteUser(req, res) {
+  try {
+    const { id } = req.params;
+    const result = await api.deleteUser(id);
+    logDebug(req, 'result status: ', result.status);
+    logSuccess(req, `deleted user ${id}`);
+    res.redirect('/admin');
   } catch (err) {
     logErr(req, err);
     return res.redirect('/404');
