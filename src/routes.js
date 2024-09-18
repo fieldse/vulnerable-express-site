@@ -4,6 +4,9 @@ import {
   login,
   logout,
   adminIndex,
+  adminEditMessage,
+  adminEditNews,
+  adminEditUser,
   editProfile,
   getMessageBoard,
   getProfile,
@@ -17,6 +20,15 @@ routes.get('/', (req, res) => res.render('home'));
 
 // Admin
 routes.get('/admin', adminIndex);
+
+// Admin -- Edit news
+routes.get('/admin/edit-news/:id', adminEditNews);
+
+// Admin -- Edit message
+routes.get('/admin/edit-message/:id', adminEditMessage);
+
+// Admin -- Edit user
+routes.get('/admin/edit-user/:id', adminEditUser);
 
 // News
 routes.get('/news', newsIndex);
