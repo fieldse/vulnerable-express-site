@@ -1,33 +1,25 @@
 // Backend API routes
 import axios from 'axios';
-axios.defaults.withCredentials = true;
 
 import { BASE_API_URL } from './config.js';
-
-const urls = {
-  messages: BASE_API_URL + '/messages',
-  news: BASE_API_URL + '/news',
-  users: BASE_API_URL + '/users',
-  login: BASE_API_URL + '/login',
-  logout: BASE_API_URL + '/logout',
-  message: (id) => BASE_API_URL + `/messages/${id}`,
-  user: (id) => BASE_API_URL + `/users/${id}`,
-  newsItem: (id) => BASE_API_URL + `/news/${id}`,
-};
+const instance = axios.create({
+  withCredentials: true,
+  baseURL: BASE_API_URL,
+});
 
 const login = async (email, password) => {
-  return axios.post(urls.login, {
+  return instance.post('/login', {
     email,
     password,
   });
 };
 
 const logout = async () => {
-  return axios.post(urls.logout);
+  return instance.post('/logout');
 };
 
 const updateProfile = async (id, name, email, password) => {
-  return axios.put(urls.user(id), {
+  return instance.put(`/users/${id}`, {
     name,
     email,
     password,
@@ -35,16 +27,24 @@ const updateProfile = async (id, name, email, password) => {
 };
 
 const addUser = async (name, email, password, role) => {
-  return axios.post(urls.users, {
-    name,
-    email,
-    password,
-    role,
-  });
+  return instance.post(
+    '/users',
+    {
+      name,
+      email,
+      password,
+      role,
+    },
+    {
+      headers: {
+        Authorization: 'Basic SOME_TOKEN',
+      },
+    }
+  );
 };
 
 const addNews = async (title, content, userId) => {
-  return axios.post(urls.news, {
+  return instance.post('/news', {
     title,
     content,
     userId,
@@ -52,7 +52,7 @@ const addNews = async (title, content, userId) => {
 };
 
 const addMessage = async (title, content, userId) => {
-  return axios.post(urls.messages, {
+  return instance.post('/messages', {
     title,
     content,
     userId,
@@ -60,32 +60,32 @@ const addMessage = async (title, content, userId) => {
 };
 
 const deleteUser = async (id) => {
-  return axios.delete(urls.user(id));
+  return instance.delete(`/users/${id}`);
 };
 
 const deleteNews = async (id) => {
-  return axios.delete(urls.newsItem(id));
+  return instance.delete(`/news/${id}`);
 };
 
 const deleteMessage = async (id) => {
-  return axios.delete(urs.message(id));
+  return instance.delete(`/messages/${id}`);
 };
 
 const getMessages = async () => {
-  return axios.get(urls.messages);
+  return instance.get('/messages');
 };
 
 const getNews = async () => {
-  return axios.get(urls.news);
+  return instance.get('/news');
 };
 
 const getUsers = async () => {
-  return axios.get(urls.users);
+  return instance.get('/users');
 };
 
 // Get single user
 const getUser = async (id) => {
-  return axios.get(urls.user(id));
+  return instance.get(`/users/${id}`);
 };
 
 export default {
