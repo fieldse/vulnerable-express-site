@@ -58,6 +58,7 @@ export async function addMessage(req, res) {
 export async function editNews(req, res) {
   try {
     const { id } = req.params;
+    // Handle POST news
     if (req.method === 'POST') {
       // FIXME: test this
       const { title, content, userId } = req.body;
@@ -75,7 +76,8 @@ export async function editNews(req, res) {
       logSuccess(req, `updated ${result} rows`);
       return res.redirect('/admin');
     }
-    res.render('admin/edit-news');
+    const { data } = await api.getNewsItem(id);
+    res.render('admin/edit-news', { news: data?.news });
   } catch (err) {
     res.redirect('/404');
   }
@@ -85,6 +87,7 @@ export async function editNews(req, res) {
 export async function editMessage(req, res) {
   try {
     const { id } = req.params;
+    // Handle POST message
     if (req.method === 'POST') {
       // FIXME: test this
       const { title, content, userId } = req.body;
@@ -102,7 +105,8 @@ export async function editMessage(req, res) {
       logSuccess(req, `updated ${result} rows`);
       return res.redirect('/admin');
     }
-    res.render('admin/edit-message');
+    const { data } = await api.getMessage(id);
+    res.render('admin/edit-message', { message: data?.message });
   } catch (err) {
     res.redirect('/404');
   }

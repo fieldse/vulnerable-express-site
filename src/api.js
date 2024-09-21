@@ -78,12 +78,20 @@ const deleteMessage = async (id, authToken) => {
   return instance.delete(`/messages/${id}`, withAuth(authToken));
 };
 
+const getMessage = async (id) => {
+  return instance.get(`/messages/${id}`);
+};
+
 const getMessages = async () => {
   return instance.get('/messages');
 };
 
 const getNews = async () => {
   return instance.get('/news');
+};
+
+const getNewsItem = async (id) => {
+  return instance.get(`/news/${id}`);
 };
 
 const getUsers = async () => {
@@ -145,8 +153,10 @@ export default {
   deleteUser,
   deleteNews,
   deleteMessage,
+  getMessage,
   getMessages,
   getNews,
+  getNewsItem,
   getUser,
   getUsers,
   updateUser,
