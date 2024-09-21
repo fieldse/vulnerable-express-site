@@ -3,7 +3,7 @@ import { logDebug, logErr, logSuccess } from '../logging.js';
 import api from '../api.js';
 
 // Admin dashboard
-export async function adminIndex(req, res) {
+export async function index(req, res) {
   const messageData = await api.getMessages();
   const newsData = await api.getNews();
   const usersData = await api.getUsers();
@@ -16,7 +16,7 @@ export async function adminIndex(req, res) {
 
 // Admin -- Add news
 // FIXME: test this
-export async function adminAddNews(req, res) {
+export async function addNews(req, res) {
   try {
     if (req.method === 'POST') {
       const { title, content, userId } = req.body;
@@ -36,7 +36,7 @@ export async function adminAddNews(req, res) {
 
 // Admin -- Add message
 // FIXME: test this
-export async function adminAddMessage(req, res) {
+export async function addMessage(req, res) {
   try {
     if (req.method === 'POST') {
       const { title, content, userId } = req.body;
@@ -55,7 +55,7 @@ export async function adminAddMessage(req, res) {
 }
 
 // Admin -- Edit news
-export async function adminEditNews(req, res) {
+export async function editNews(req, res) {
   try {
     const { id } = req.params;
     if (req.method === 'POST') {
@@ -82,7 +82,7 @@ export async function adminEditNews(req, res) {
 }
 
 // Admin -- Edit message
-export async function adminEditMessage(req, res) {
+export async function editMessage(req, res) {
   try {
     const { id } = req.params;
     if (req.method === 'POST') {
@@ -109,7 +109,7 @@ export async function adminEditMessage(req, res) {
 }
 
 // Admin -- Add user
-export async function adminAddUser(req, res) {
+export async function addUser(req, res) {
   try {
     if (req.method === 'POST') {
       const { name, email, password, role } = req.body;
@@ -129,7 +129,7 @@ export async function adminAddUser(req, res) {
 }
 
 // Admin -- Edit user
-export async function adminEditUser(req, res) {
+export async function editUser(req, res) {
   try {
     const { id } = req.params;
     // Handle POST route
@@ -163,7 +163,7 @@ export async function adminEditUser(req, res) {
 }
 
 // Admin -- Delete user action
-export async function adminDeleteUser(req, res) {
+export async function deleteUser(req, res) {
   try {
     const { id } = req.params;
     const authToken = req.cookies?.token;

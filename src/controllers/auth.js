@@ -1,5 +1,5 @@
 // Auth methods
-import { logSuccess, logErr, logDebug } from '../logging.js';
+import { logSuccess, logErr } from '../logging.js';
 import api from '../api.js';
 
 // Login handler
