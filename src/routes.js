@@ -4,9 +4,11 @@ import {
   login,
   logout,
   adminIndex,
+  adminAddUser,
+  adminAddNews,
+  adminAddMessage,
   adminEditMessage,
   adminEditNews,
-  adminAddUser,
   adminEditUser,
   adminDeleteUser,
   editProfile,
@@ -23,14 +25,20 @@ routes.get('/', (req, res) => res.render('home'));
 // Admin
 routes.get('/admin', adminIndex);
 
+// Admin -- Add message
+routes.get('/admin/add-message', adminAddMessage);
+
+// Admin -- Add news
+routes.get('/admin/add-news', adminAddNews);
+
+// Admin -- Add user
+routes.get('/admin/add-user', adminAddUser);
+
 // Admin -- Edit news
 routes.get('/admin/edit-news/:id', adminEditNews);
 
 // Admin -- Edit message
 routes.get('/admin/edit-message/:id', adminEditMessage);
-
-// Admin -- Add user
-routes.get('/admin/add-user', adminAddUser);
 
 // Admin -- POST Add user
 routes.post('/admin/add-user', adminAddUser);

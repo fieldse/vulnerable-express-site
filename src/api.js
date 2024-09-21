@@ -108,13 +108,36 @@ const updateUser = async (id, name, email, password, role, authToken) => {
   );
 };
 
+const updateNews = async (id, title, content, userId, authToken) => {
+  return instance.put(
+    `/news/${id}`,
+    {
+      title,
+      content,
+      userId,
+    },
+    withAuth(authToken)
+  );
+};
+
+const updateMessage = async (id, title, content, userId, authToken) => {
+  return instance.put(
+    `/messages/${id}`,
+    {
+      title,
+      content,
+      userId,
+    },
+    withAuth(authToken)
+  );
+};
+
 const validateToken = async (authToken) => {
   return instance.get('/validate-token', withAuth(authToken));
 };
 
 export default {
   login,
-  logout,
   updateProfile,
   addUser,
   addNews,
@@ -127,5 +150,7 @@ export default {
   getUser,
   getUsers,
   updateUser,
+  updateNews,
+  updateMessage,
   validateToken,
 };

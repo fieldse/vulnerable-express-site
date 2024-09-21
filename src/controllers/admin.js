@@ -7,27 +7,73 @@ export async function adminIndex(req, res) {
   const messageData = await api.getMessages();
   const newsData = await api.getNews();
   const usersData = await api.getUsers();
-  var debugData;
-  try {
-    const authToken = req.cookies?.token;
-    const validateResult = await api.validateToken(authToken);
-    debugData = JSON.stringify(validateResult?.data);
-  } catch (err) {
-    logErr(req, err);
-  }
   res.render('admin/admin', {
     messages: messageData?.data.rows,
     news: newsData?.data.rows,
     users: usersData?.data.rows,
-    debugData,
   });
+}
+
+// Admin -- Add news
+// FIXME: test this
+export async function adminAddNews(req, res) {
+  try {
+    if (req.method === 'POST') {
+      const { title, content, userId } = req.body;
+      if (!title || !content || !userId) {
+        throw new Error('title, content, userId fields must not be empty');
+      }
+      const authToken = req.cookies?.token;
+      const result = await api.addNews(title, content, userId, authToken);
+      logSuccess(req, `updated ${result} rows`);
+      return res.redirect('/admin');
+    }
+    res.render('admin/add-news');
+  } catch (err) {
+    res.redirect('/404');
+  }
+}
+
+// Admin -- Add message
+// FIXME: test this
+export async function adminAddMessage(req, res) {
+  try {
+    if (req.method === 'POST') {
+      const { title, content, userId } = req.body;
+      if (!title || !content || !userId) {
+        throw new Error('title, content, userId fields must not be empty');
+      }
+      const authToken = req.cookies?.token;
+      const result = await api.addMessage(title, content, userId, authToken);
+      logSuccess(req, `updated ${result} rows`);
+      return res.redirect('/admin');
+    }
+    res.render('admin/add-message');
+  } catch (err) {
+    res.redirect('/404');
+  }
 }
 
 // Admin -- Edit news
 export async function adminEditNews(req, res) {
   try {
+    const { id } = req.params;
     if (req.method === 'POST') {
-      // FIXME: do something
+      // FIXME: test this
+      const { title, content, userId } = req.body;
+      if (!title || !content || !userId) {
+        throw new Error('title, content, userId fields must not be empty');
+      }
+      const authToken = req.cookies?.token;
+      const result = await api.updateMessage(
+        id,
+        title,
+        content,
+        userId,
+        authToken
+      );
+      logSuccess(req, `updated ${result} rows`);
+      return res.redirect('/admin');
     }
     res.render('admin/edit-news');
   } catch (err) {
@@ -38,8 +84,23 @@ export async function adminEditNews(req, res) {
 // Admin -- Edit message
 export async function adminEditMessage(req, res) {
   try {
+    const { id } = req.params;
     if (req.method === 'POST') {
-      // FIXME: do something
+      // FIXME: test this
+      const { title, content, userId } = req.body;
+      if (!title || !content || !userId) {
+        throw new Error('title, content, userId fields must not be empty');
+      }
+      const authToken = req.cookies?.token;
+      const result = await api.updateMessage(
+        id,
+        title,
+        content,
+        userId,
+        authToken
+      );
+      logSuccess(req, `updated ${result} rows`);
+      return res.redirect('/admin');
     }
     res.render('admin/edit-message');
   } catch (err) {
@@ -55,8 +116,7 @@ export async function adminAddUser(req, res) {
       if (!name || !email || !password || !role) {
         throw new Error('name, email, password, role fields must not be empty');
       }
-      const authToken = req.cookies?.user;
-      logDebug(req, 'authToken: ', authToken);
+      const authToken = req.cookies?.token;
       const userId = await api.addUser(name, email, password, role, authToken);
       logSuccess(req, 'created user: ' + userId);
       return res.redirect('/admin');
