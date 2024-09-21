@@ -1,4 +1,46 @@
-<div id='add-news'>
-  <h1>Add news</h1>
-  <p>Placeholder</p>
+{{> 'admin-back' }}
+
+<div id='add-news' class='w-2/3 max-w-3xl mx-auto'>
+  <h2 class='text-3xl text-gray-800'>Add news</h2>
+
+  <form
+    class='mt-6 border bg-white border-gray-700 rounded-xl text-gray-800 flex flex-col justify-center gap-y-6 py-12 px-24'
+    action='/admin/add-news'
+    method='post'
+  >
+    <!-- Title -->
+
+      <input
+        id='title'
+        name='title'
+        class='px-4 py-1 rounded-md border border-gray-500 flex-1'
+        type='text'
+        placeholder='Title'
+      />
+
+
+    <!-- Content -->
+      <textarea
+        id='content'
+        name='content'
+        rows="10"
+        class='px-4 py-1 rounded-md border border-gray-500 flex-1'
+        placeholder='Enter your content here...'
+      ></textarea>
+
+
+    <span class='flex flex-row justify-end gap-x-4 mt-8'>
+      <button
+        type='submit'
+        class='button rounded-md bg-gray-700 text-white px-4 py-2'
+      >Save</button>
+      <a href='/admin'>
+        <button
+          type='button'
+          class='button rounded-md border border-gray-700 text-gray-700 px-4 py-2'
+        >Cancel</button>
+      </a>
+    </span>
+  </form>
+
 </div>
