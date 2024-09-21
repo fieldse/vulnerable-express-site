@@ -59,7 +59,7 @@ routes.use('/profile/edit', profile.edit);
 routes.post('/profile/edit', profile.edit);
 
 // Support
-routes.get('/support', support.get);
+routes.get('/support', support.index);
 
 // Logout
 routes.get('/logout', auth.logout);
