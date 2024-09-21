@@ -7,6 +7,13 @@ const instance = axios.create({
   baseURL: BASE_API_URL,
 });
 
+// Add authorization header to request
+const withAuth = (authToken) => {
+  return {
+    headers: { Authorization: 'Bearer ' + authToken },
+  };
+};
+
 const login = async (email, password) => {
   return instance.post('/login', {
     email,
@@ -14,16 +21,16 @@ const login = async (email, password) => {
   });
 };
 
-const logout = async () => {
-  return instance.post('/logout');
-};
-
-const updateProfile = async (id, name, email, password) => {
-  return instance.put(`/users/${id}`, {
-    name,
-    email,
-    password,
-  });
+const updateProfile = async (id, name, email, password, authToken) => {
+  return instance.put(
+    `/users/${id}`,
+    {
+      name,
+      email,
+      password,
+    },
+    withAuth(authToken)
+  );
 };
 
 const addUser = async (name, email, password, role, authToken) => {
@@ -35,20 +42,20 @@ const addUser = async (name, email, password, role, authToken) => {
       password,
       role,
     },
-    {
-      headers: {
-        Authorization: authToken,
-      },
-    }
+    withAuth(authToken)
   );
 };
 
-const addNews = async (title, content, userId) => {
-  return instance.post('/news', {
-    title,
-    content,
-    userId,
-  });
+const addNews = async (title, content, userId, authToken) => {
+  return instance.post(
+    '/news',
+    {
+      title,
+      content,
+      userId,
+    },
+    withAuth(authToken)
+  );
 };
 
 const addMessage = async (title, content, userId) => {
@@ -59,16 +66,16 @@ const addMessage = async (title, content, userId) => {
   });
 };
 
-const deleteUser = async (id) => {
-  return instance.delete(`/users/${id}`);
+const deleteUser = async (id, authToken) => {
+  return instance.delete(`/users/${id}`, withAuth(authToken));
 };
 
-const deleteNews = async (id) => {
-  return instance.delete(`/news/${id}`);
+const deleteNews = async (id, authToken) => {
+  return instance.delete(`/news/${id}`, withAuth(authToken));
 };
 
-const deleteMessage = async (id) => {
-  return instance.delete(`/messages/${id}`);
+const deleteMessage = async (id, authToken) => {
+  return instance.delete(`/messages/${id}`, withAuth(authToken));
 };
 
 const getMessages = async () => {
@@ -88,10 +95,21 @@ const getUser = async (id) => {
   return instance.get(`/users/${id}`);
 };
 
+const updateUser = async (id, name, email, password, role, authToken) => {
+  return instance.put(
+    `/users/${id}`,
+    {
+      name,
+      email,
+      password,
+      role,
+    },
+    withAuth(authToken)
+  );
+};
+
 const validateToken = async (authToken) => {
-  return instance.get('/validate-token', {
-    headers: { Authorization: 'Bearer ' + authToken },
-  });
+  return instance.get('/validate-token', withAuth(authToken));
 };
 
 export default {
@@ -108,5 +126,6 @@ export default {
   getNews,
   getUser,
   getUsers,
+  updateUser,
   validateToken,
 };

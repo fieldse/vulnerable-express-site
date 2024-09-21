@@ -42,7 +42,7 @@ routes.get('/admin/edit-user/:id', adminEditUser);
 routes.post('/admin/edit-user/:id', adminEditUser);
 
 // Admin -- Delete user
-routes.get('/admin/delete-user/:id', adminDeleteUser); // Super insecure! Directly destroy user without checks
+routes.get('/admin/delete-user/:id', adminDeleteUser);
 
 // News
 routes.get('/news', newsIndex);

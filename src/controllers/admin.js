@@ -10,7 +10,6 @@ export async function adminIndex(req, res) {
   var debugData;
   try {
     const authToken = req.cookies?.token;
-    logDebug(req, 'authToken: ', authToken);
     const validateResult = await api.validateToken(authToken);
     debugData = JSON.stringify(validateResult?.data);
   } catch (err) {
@@ -26,12 +25,26 @@ export async function adminIndex(req, res) {
 
 // Admin -- Edit news
 export async function adminEditNews(req, res) {
-  res.render('admin/edit-news');
+  try {
+    if (req.method === 'POST') {
+      // FIXME: do something
+    }
+    res.render('admin/edit-news');
+  } catch (err) {
+    res.redirect('/404');
+  }
 }
 
 // Admin -- Edit message
 export async function adminEditMessage(req, res) {
-  res.render('admin/edit-message');
+  try {
+    if (req.method === 'POST') {
+      // FIXME: do something
+    }
+    res.render('admin/edit-message');
+  } catch (err) {
+    res.redirect('/404');
+  }
 }
 
 // Admin -- Add user
@@ -58,17 +71,31 @@ export async function adminAddUser(req, res) {
 // Admin -- Edit user
 export async function adminEditUser(req, res) {
   try {
-    // Handle POST login
+    const { id } = req.params;
+    // Handle POST route
     if (req.method === 'POST') {
-      // FIXME: do something here
-    } else {
-      const { id } = req.params;
-      const { data } = await api.getUser(id);
-      if (!data?.user) {
-        throw new Error('user not found');
+      const { name, email, password, role } = req.body;
+      const authToken = req.cookies?.token;
+
+      if (!name || !email || !role) {
+        throw new Error('name, email, role fields must not be empty');
       }
-      res.render('admin/edit-user', { user: data.user });
+      const result = await api.updateUser(
+        id,
+        name,
+        email,
+        password,
+        role,
+        authToken
+      );
+      logSuccess(req, `modified ${result} rows`);
+      return res.redirect('/admin');
     }
+    const { data } = await api.getUser(id);
+    if (!data?.user) {
+      throw new Error('user not found');
+    }
+    res.render('admin/edit-user', { user: data.user });
   } catch (err) {
     logErr(req, err);
     return res.redirect('/404');
@@ -79,8 +106,9 @@ export async function adminEditUser(req, res) {
 export async function adminDeleteUser(req, res) {
   try {
     const { id } = req.params;
-    const result = await api.deleteUser(id);
-    logSuccess(req, `deleted user ${id}`);
+    const authToken = req.cookies?.token;
+    const result = await api.deleteUser(id, authToken);
+    logSuccess(req, `deleted ${result} rows`);
     res.redirect('/admin');
   } catch (err) {
     logErr(req, err);
