@@ -1,5 +1,5 @@
 // Auth methods
-import { logSuccess, logErr } from '../logging.js';
+import { logSuccess, logErr, logDebug } from '../logging.js';
 import api from '../api.js';
 
 // Login handler
@@ -12,13 +12,17 @@ export async function login(req, res) {
       if (result.status !== 200) {
         throw new Error('login failed: ' + result?.message || 'unknown error');
       }
-      const { user } = result.data;
+      const { user, token } = result.data;
       if (!user) {
         throw new Error('login failed: user data empty');
+      }
+      if (!token) {
+        throw new Error('login failed: token empty');
       }
 
       // Store to cookie
       res.cookie('user', JSON.stringify(user));
+      res.cookie('token', token);
 
       // Store locals
       req.app.locals.isLoggedIn = true;
@@ -43,6 +47,7 @@ export async function logout(req, res) {
     req.app.locals.currentUser = undefined;
     req.app.locals.isAdmin = undefined;
     res.clearCookie('user');
+    res.clearCookie('token');
   } catch (err) {
     logErr(req, err);
   }

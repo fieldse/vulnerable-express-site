@@ -26,7 +26,7 @@ const updateProfile = async (id, name, email, password) => {
   });
 };
 
-const addUser = async (name, email, password, role) => {
+const addUser = async (name, email, password, role, authToken) => {
   return instance.post(
     '/users',
     {
@@ -37,7 +37,7 @@ const addUser = async (name, email, password, role) => {
     },
     {
       headers: {
-        Authorization: 'Basic SOME_TOKEN',
+        Authorization: authToken,
       },
     }
   );
@@ -88,6 +88,12 @@ const getUser = async (id) => {
   return instance.get(`/users/${id}`);
 };
 
+const validateToken = async (authToken) => {
+  return instance.get('/validate-token', {
+    headers: { Authorization: 'Bearer ' + authToken },
+  });
+};
+
 export default {
   login,
   logout,
@@ -102,4 +108,5 @@ export default {
   getNews,
   getUser,
   getUsers,
+  validateToken,
 };

@@ -7,19 +7,20 @@ export async function adminIndex(req, res) {
   const messageData = await api.getMessages();
   const newsData = await api.getNews();
   const usersData = await api.getUsers();
-  logDebug(
-    req,
-    'admin data: ',
-    JSON.stringify({
-      messages: messageData?.data.rows,
-      news: newsData?.data.rows,
-      users: usersData?.data.rows,
-    })
-  );
+  var debugData;
+  try {
+    const authToken = req.cookies?.token;
+    logDebug(req, 'authToken: ', authToken);
+    const validateResult = await api.validateToken(authToken);
+    debugData = JSON.stringify(validateResult?.data);
+  } catch (err) {
+    logErr(req, err);
+  }
   res.render('admin/admin', {
     messages: messageData?.data.rows,
     news: newsData?.data.rows,
     users: usersData?.data.rows,
+    debugData,
   });
 }
 
@@ -41,7 +42,9 @@ export async function adminAddUser(req, res) {
       if (!name || !email || !password || !role) {
         throw new Error('name, email, password, role fields must not be empty');
       }
-      const userId = await api.addUser(name, email, password, role);
+      const authToken = req.cookies?.user;
+      logDebug(req, 'authToken: ', authToken);
+      const userId = await api.addUser(name, email, password, role, authToken);
       logSuccess(req, 'created user: ' + userId);
       return res.redirect('/admin');
     }
@@ -77,7 +80,6 @@ export async function adminDeleteUser(req, res) {
   try {
     const { id } = req.params;
     const result = await api.deleteUser(id);
-    logDebug(req, 'result status: ', result.status);
     logSuccess(req, `deleted user ${id}`);
     res.redirect('/admin');
   } catch (err) {

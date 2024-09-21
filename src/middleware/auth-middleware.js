@@ -1,5 +1,7 @@
 // Auth middleware for login/logout
 
+import { logDebug } from '../logging.js';
+
 // Middleware for login-required pages
 export const isLoggedIn = async (req, res, next) => {
   // Placeholder for getting logged in status
@@ -20,6 +22,13 @@ export const loadCookies = (req, res, next) => {
     req.app.locals.isLoggedIn = true;
     req.app.locals.currentUser = user;
     req.app.locals.isAdmin = user?.role == 'admin';
+
+    // Convert to a token for Authorization headers
+    try {
+      req.app.locals.authToken = btoa(cookie);
+    } catch (err) {
+      logDebug(req, 'invalid authorization token: ' + err.message);
+    }
   }
   next();
 };
