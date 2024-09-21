@@ -1,5 +1,5 @@
 // Admin controller
-import { logDebug, logErr, logSuccess } from '../logging.js';
+import { logErr, logSuccess } from '../logging.js';
 import api from '../api.js';
 
 // Admin dashboard
