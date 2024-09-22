@@ -55,6 +55,10 @@ routes.get('/news', news.index);
 // Message board
 routes.get('/message-board', messages.index);
 
+// Post new message
+routes.get('/new-message', messages.newMessage);
+routes.post('/new-message', messages.newMessage);
+
 // Employee profile - PRIVATE ROUTE
 routes.get('/profile', profile.get);
 

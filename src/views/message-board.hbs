@@ -7,7 +7,14 @@
         <h2 class='text-2xl mb-6'>
           {{this.title}}
         </h2>
-        <p>{{this.content}}</p>
+        <p>{{{this.content}}}</p>
+        <div class='text-base mt-8 text-gray-500 italic'>
+          <p>
+            <span>posted by:</span>
+            <span class='ml-2'>{{this.userName}} &lt;{{this.email}}&gt;</span>
+          </p>
+          <p>date: {{this.createdAt}}</p>
+        </div>
       </div>
     {{/each}}
   {{else}}
@@ -16,3 +23,14 @@
     </h2>
   {{/if}}
 </div>
+
+{{#if isLoggedIn}}
+  <div class='my-10 text-right px-12'>
+    <a href='/new-message'>
+      <button
+        type='button'
+        class='rounded-lg text-base px-4 py-2 text-white bg-green-400 hover:bg-green-500'
+      >Post new message</button>
+    </a>
+  </div>
+{{/if}}
