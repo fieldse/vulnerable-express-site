@@ -1,0 +1,135 @@
+<div id='admin-container' class='pb-16'>
+
+  <h2 class='text-3xl text-gray-800'>Admin panel</h2>
+
+  <!-- Users management -->
+  <div
+    id='users-section'
+    class='my-10 border border-gray-700 rounded-xl p-8 relative'
+  >
+    <h2 class='text-2xl mb-6'>Users</h2>
+    <ul class='my-4 leading-10 sm:w-full md:w-3/4 lg:w-2/3'>
+      {{#each users}}
+        <li
+          class='admin-item-row px-4 flex flex-row justify-between h-12 hover:bg-green-200 rounded-lg border hover:border-green-600'
+        >
+          <span class='overflow-hidden overflow-ellipsis'>
+            <span> id: {{this.id}} </span>
+            <span class='ml-3'> {{this.email}} </span>
+          </span>
+          <span class='edit-buttons text-nowrap min-w-32'>
+            <a href='/admin/edit-user/{{this.id}}'>
+              <button
+                class='bg-blue-400 rounded-lg text-sm px-2 min-w-14 h-8 text-white'
+              >Edit</button>
+            </a>
+            <a
+              href='/admin/delete-user/{{this.id}}'
+              onclick="return confirm('Delete this record?');"
+            >
+              <button
+                class='bg-red-400 rounded-lg text-sm px-2 min-w-14 h-8 ml-3 text-white'
+              >Delete</button>
+            </a>
+          </span>
+        </li>
+      {{/each}}
+    </ul>
+    <!-- add user -->
+    <div>
+      <a href='/admin/add-user/'>
+        <button
+          class='rounded-lg text-base px-4 py-2 mt-6 w-40 text-white bg-green-400 hover:bg-green-500'
+        >Add user</button>
+      </a>
+    </div>
+  </div>
+
+  <!-- News and announcements management -->
+  <div
+    id='news-section'
+    class='my-10 border border-gray-700 rounded-xl p-8 relative'
+  >
+    <h2 class='text-2xl mb-6'>News and announcements</h2>
+    <ul class='my-4 leading-10 sm:w-full md:w-3/4 lg:w-2/3'>
+      {{#each news}}
+        <li
+          class='admin-item-row px-4 flex flex-row justify-between h-12 hover:bg-green-200 rounded-lg border hover:border-green-600'
+        >
+          <span class='overflow-hidden overflow-ellipsis'>
+            <span>id: {{this.id}} </span>
+            <span class='ml-3 overflow-hidden'>
+              {{this.title}}
+            </span>
+          </span>
+          <span class='edit-buttons text-nowrap min-w-32'>
+            <a href='/admin/edit-news/{{this.id}}'>
+              <button
+                class='bg-blue-400 rounded-lg text-sm px-2 min-w-14 h-8 text-white'
+              >Edit</button>
+            </a>
+            <a
+              href='/admin/delete-news/{{this.id}}'
+              onclick="return confirm('Delete this record?');"
+            >
+              <button
+                class='bg-red-400 rounded-lg text-sm px-2 min-w-14 h-8 ml-3 text-white'
+              >Delete</button>
+            </a>
+          </span>
+        </li>
+      {{/each}}
+    </ul>
+    <!-- add news item -->
+    <div>
+      <a href='/admin/add-news'>
+        <button
+          class='rounded-lg text-base px-4 py-2 mt-6 w-40 text-white bg-green-400 hover:bg-green-500'
+        >Add news</button>
+      </a>
+    </div>
+  </div>
+
+  <!-- Messages management -->
+  <div
+    id='messages-section'
+    class='my-10 border border-gray-700 rounded-xl p-8 relative'
+  >
+    <h2 class='text-2xl mb-6'>Messages</h2>
+    <ul class='my-4 leading-10 sm:w-full md:w-3/4 lg:w-2/3'>
+      {{#each messages}}
+        <li
+          class='admin-item-row px-4 flex flex-row justify-between h-12 hover:bg-green-200 rounded-lg border hover:border-green-600'
+        >
+          <span class='overflow-hidden overflow-ellipsis'>
+            <span> id: {{this.id}} </span>
+            <span class='ml-3'> {{this.title}} </span>
+          </span>
+          <span class='edit-buttons text-nowrap min-w-32'>
+            <a href='/admin/edit-message/{{this.id}}'>
+              <button
+                class='bg-blue-400 rounded-lg text-sm px-2 min-w-14 h-8 text-white'
+              >Edit</button>
+            </a>
+            <a
+              href='/admin/delete-message/{{this.id}}'
+              onclick="return confirm('Delete this record?');"
+            >
+              <button
+                class='bg-red-400 rounded-lg text-sm px-2 min-w-14 h-8 ml-3 text-white'
+              >Delete</button>
+            </a>
+          </span>
+        </li>
+      {{/each}}
+    </ul>
+    <!-- add message item -->
+    <div>
+      <a href='/admin/add-message/'>
+        <button
+          class='rounded-lg text-base px-4 py-2 mt-6 w-40 text-white bg-green-400 hover:bg-green-500'
+        >Add message</button>
+      </a>
+    </div>
+  </div>
+</div>

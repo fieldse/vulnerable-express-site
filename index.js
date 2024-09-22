@@ -5,13 +5,20 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import { PORT, DEBUG } from './src/config.js';
 import routes from './src/routes.js';
+import { loadCookies } from './src/middleware/auth-middleware.js';
 
 const app = express();
 const hbs = create({
   defaultLayout: 'main',
   extname: '.hbs',
-  partialsDir: 'src/views/partials/',
+  partialsDir: ['src/views/partials/', 'src/views/forms/'],
   layoutsDir: 'src/layouts/',
+  helpers: {
+    // equality helper
+    eq(a, b) {
+      return a == b;
+    },
+  },
 });
 
 // Middleware
@@ -19,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('tiny'));
 app.locals.isDebug = DEBUG;
+app.use(loadCookies);
 
 // Set view engine to Handlebars
 app.engine('.hbs', hbs.engine);

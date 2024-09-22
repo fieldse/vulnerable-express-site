@@ -3,7 +3,7 @@ import { logErr, logSuccess } from '../logging.js';
 import api from '../api.js';
 
 // Get profile for the logged in user
-export async function getProfile(req, res) {
+export async function get(req, res) {
   try {
     res.render('profile');
   } catch (err) {
@@ -13,10 +13,10 @@ export async function getProfile(req, res) {
 }
 
 // GET/POST edit profile
-export async function editProfile(req, res) {
+export async function edit(req, res) {
   if (req.method === 'POST') {
     const { id, name, email, password } = req.body; // Insecure: ID could be modified in the request body by the user
-    const result = await api.postEditProfile(id, name, email, password);
+    const result = await api.updateProfile(id, name, email, password);
     if (result.status === 200) {
       const prevUser = req.app.locals.currentUser;
       req.app.locals.currentUser = { ...prevUser, name, email };

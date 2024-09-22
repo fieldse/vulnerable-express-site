@@ -1,0 +1,96 @@
+<!-- edit user form -->
+<form
+  id='edit-user-form'
+  class='mt-6 border bg-white border-gray-700 rounded-xl text-gray-800 flex flex-col justify-center gap-y-6 py-12 px-24'
+  action='{{formAction}}'
+  method='post'
+>
+  <h2 class='text-2xl mb-8 text-gray-800 font-semibold'>
+    {{#if user}}
+      {{user.email}}
+    {{else}}New User{{/if}}
+  </h2>
+
+  {{#if user}}
+    <!-- User ID -->
+    <div class='flex flex-row justify-between'>
+      <label class='flex-1'>ID</label>
+      <input
+        class='px-4 py-1 rounded-md flex-1'
+        type='number'
+        name='id'
+        value='{{user.id}}'
+        disabled
+      />
+    </div>
+  {{/if}}
+
+  <!-- name -->
+  <div class='flex flex-row justify-between'>
+    <label class='flex-1'>Name</label>
+    <input
+      id='name'
+      name='name'
+      class='px-4 py-1 rounded-md border border-gray-500 flex-1'
+      type='text'
+      placeholder='Example user'
+      value='Example User'
+    />
+  </div>
+
+  <!-- email -->
+  <div class='flex flex-row justify-between'>
+    <label class='flex-1'>Email</label>
+    <input
+      id='email'
+      name='email'
+      class='px-4 py-1 rounded-md border border-gray-500 flex-1'
+      type='text'
+      placeholder='example@email.com'
+      value='{{user.email}}'
+    />
+  </div>
+
+  <!-- password -->
+  <div class='flex flex-row justify-between'>
+    <label class='flex-1'>Password</label>
+    <input
+      id='password'
+      name='password'
+      class='px-4 py-1 rounded-md border border-gray-500 flex-1'
+      type='password'
+      placeholder='*************'
+    />
+  </div>
+
+  <!-- role -->
+  <div class='flex flex-row justify-between'>
+    <label class='flex-1'>Role</label>
+    <select
+      id='role'
+      name='role'
+      class='px-4 py-1 rounded-md border border-gray-500 flex-1 text-gray-700'
+    >
+    {{#if user }}
+      <option value='admin' {{#if (eq user.role 'admin')}}selected{{/if}}>admin</option>
+      <option value='normal' {{#if (eq user.role 'normal')}}selected{{/if}}>normal</option>
+    {{else}}
+      <option value='admin'>admin</option>
+      <option value='normal' selected>normal</option>
+    {{/if }}
+    </select>
+  </div>
+
+  <span class='flex flex-row justify-end gap-x-4 mt-8'>
+    <button
+      type='submit'
+      class='button rounded-md bg-gray-700 text-white px-4 py-2'
+    >Save</button>
+    <a href='/admin'>
+      <button
+        type='button'
+        class='button rounded-md border border-gray-700 text-gray-700 px-4 py-2'
+      >Cancel</button>
+    </a>
+  </span>
+</form>
