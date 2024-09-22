@@ -3,10 +3,10 @@
 import { logDebug } from '../logging.js';
 
 // Middleware for login-required pages
-export const isLoggedIn = async (req, res, next) => {
+export const checkIsLoggedIn = async (req, res, next) => {
   // Placeholder for getting logged in status
-  const isLoggedIn = !!req.cookies.user; // This simply checks if _any_ cookie named 'user' exists
-  if (!isLoggedIn) {
+  // This simply checks if _any_ cookie named 'user' exists
+  if (!!req.cookies.user) {
     res.redirect(301, '/login');
   }
   next();
