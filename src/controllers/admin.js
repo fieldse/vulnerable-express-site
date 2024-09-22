@@ -29,6 +29,7 @@ export async function addNews(req, res) {
     }
     res.render('admin/add-news', { formAction: '/admin/add-news' });
   } catch (err) {
+    logErr(req, err);
     res.redirect('/404');
   }
 }
@@ -48,6 +49,7 @@ export async function addMessage(req, res) {
     }
     res.render('admin/add-message', { formAction: '/admin/add-message' });
   } catch (err) {
+    logErr(req, err);
     res.redirect('/404');
   }
 }
@@ -80,6 +82,7 @@ export async function editNews(req, res) {
       formAction: `/admin/edit-news/${id}`,
     });
   } catch (err) {
+    logErr(req, err);
     res.redirect('/404');
   }
 }
@@ -112,6 +115,7 @@ export async function editMessage(req, res) {
       formAction: `/admin/edit-message/${id}`,
     });
   } catch (err) {
+    logErr(req, err);
     res.redirect('/404');
   }
 }

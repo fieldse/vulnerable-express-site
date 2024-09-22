@@ -58,12 +58,16 @@ const addNews = async (title, content, userId, authToken) => {
   );
 };
 
-const addMessage = async (title, content, userId) => {
-  return instance.post('/messages', {
-    title,
-    content,
-    userId,
-  });
+const addMessage = async (title, content, userId, authToken) => {
+  return instance.post(
+    '/messages',
+    {
+      title,
+      content,
+      userId,
+    },
+    withAuth(authToken)
+  );
 };
 
 const deleteUser = async (id, authToken) => {

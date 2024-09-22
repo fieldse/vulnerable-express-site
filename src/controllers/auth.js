@@ -42,7 +42,6 @@ export async function login(req, res) {
 // Log out and redirect to home
 export async function logout(req, res) {
   try {
-    await api.logout();
     req.app.locals.isLoggedIn = false;
     req.app.locals.currentUser = undefined;
     req.app.locals.isAdmin = undefined;

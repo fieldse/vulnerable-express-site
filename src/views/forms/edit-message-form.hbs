@@ -4,6 +4,15 @@
   action='{{formAction}}'
   method='post'
 >
+  <!-- UserID -->
+  <input
+    id='userId'
+    name='userId'
+    class='px-4 py-1 rounded-md border border-gray-500 flex-1'
+    type='hidden'
+    value='{{currentUser.id}}'
+  />
+
   <!-- Title -->
   <input
     id='title'
