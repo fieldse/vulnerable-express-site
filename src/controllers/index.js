@@ -1,6 +1,7 @@
-export * from './auth.js';
-export * from './profile.js';
-export * from './news.js';
-export * from './messages.js';
-export * from './support.js';
+export * as admin from './admin.js';
+export * as auth from './auth.js';
+export * as profile from './profile.js';
+export * as news from './news.js';
+export * as messages from './messages.js';
+export * as support from './support.js';
 export * from './404.js';
