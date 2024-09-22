@@ -18,30 +18,36 @@ routes.get('/admin', admin.index);
 
 // Admin -- Add message
 routes.get('/admin/add-message', admin.addMessage);
+routes.post('/admin/add-message', admin.addMessage);
 
 // Admin -- Add news
 routes.get('/admin/add-news', admin.addNews);
+routes.post('/admin/add-news', admin.addNews);
 
 // Admin -- Add user
 routes.get('/admin/add-user', admin.addUser);
+routes.post('/admin/add-user', admin.addUser);
 
 // Admin -- Edit news
 routes.get('/admin/edit-news/:id', admin.editNews);
+routes.post('/admin/edit-news/:id', admin.editNews);
 
 // Admin -- Edit message
 routes.get('/admin/edit-message/:id', admin.editMessage);
-
-// Admin -- POST Add user
-routes.post('/admin/add-user', admin.addUser);
+routes.post('/admin/edit-message/:id', admin.editMessage);
 
 // Admin -- Edit user
 routes.get('/admin/edit-user/:id', admin.editUser);
-
-// Admin -- POST Edit user
 routes.post('/admin/edit-user/:id', admin.editUser);
 
 // Admin -- Delete user
 routes.get('/admin/delete-user/:id', admin.deleteUser);
+
+// Admin -- Delete news
+routes.get('/admin/delete-news/:id', admin.deleteNews);
+
+// Admin -- Delete message
+routes.get('/admin/delete-message/:id', admin.deleteMessage);
 
 // News
 routes.get('/news', news.index);
@@ -54,8 +60,6 @@ routes.get('/profile', profile.get);
 
 // GET Edit profile - PRIVATE ROUTE
 routes.use('/profile/edit', profile.edit);
-
-// POST Edit profile - PRIVATE ROUTE
 routes.post('/profile/edit', profile.edit);
 
 // Support

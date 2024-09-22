@@ -179,3 +179,31 @@ export async function deleteUser(req, res) {
     return res.redirect('/404');
   }
 }
+
+// Admin -- Delete News action
+export async function deleteNews(req, res) {
+  try {
+    const { id } = req.params;
+    const authToken = req.cookies?.token;
+    const result = await api.deleteNews(id, authToken);
+    logSuccess(req, `deleted ${result} rows`);
+    res.redirect('/admin');
+  } catch (err) {
+    logErr(req, err);
+    return res.redirect('/404');
+  }
+}
+
+// Admin -- Delete Message action
+export async function deleteMessage(req, res) {
+  try {
+    const { id } = req.params;
+    const authToken = req.cookies?.token;
+    const result = await api.deleteMessage(id, authToken);
+    logSuccess(req, `deleted ${result} rows`);
+    res.redirect('/admin');
+  } catch (err) {
+    logErr(req, err);
+    return res.redirect('/404');
+  }
+}
