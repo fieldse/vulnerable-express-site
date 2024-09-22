@@ -8,14 +8,16 @@
     class='my-10 border border-gray-700 rounded-xl p-8 relative'
   >
     <h2 class='text-2xl mb-6'>Users</h2>
-    <ul class='my-4 leading-10 pl-8 w-1/2'>
+    <ul class='my-4 leading-10 sm:w-full md:w-3/4 lg:w-2/3'>
       {{#each users}}
-        <li class='flex flex-row justify-between h-12'>
-          <span>
+        <li
+          class='admin-item-row px-4 flex flex-row justify-between h-12 hover:bg-green-200 rounded-lg border hover:border-green-600'
+        >
+          <span class='overflow-hidden overflow-ellipsis'>
             <span> id: {{this.id}} </span>
             <span class='ml-3'> {{this.email}} </span>
           </span>
-          <span>
+          <span class='edit-buttons text-nowrap min-w-32'>
             <a href='/admin/edit-user/{{this.id}}'>
               <button
                 class='bg-blue-400 rounded-lg text-sm px-2 min-w-14 h-8 text-white'
@@ -49,14 +51,18 @@
     class='my-10 border border-gray-700 rounded-xl p-8 relative'
   >
     <h2 class='text-2xl mb-6'>News and announcements</h2>
-    <ul class='my-4 leading-10 pl-8 w-1/2'>
+    <ul class='my-4 leading-10 sm:w-full md:w-3/4 lg:w-2/3'>
       {{#each news}}
-        <li class='flex flex-row justify-between h-12'>
-          <span>
-            <span> id: {{this.id}} </span>
-            <span class='ml-3'> {{this.title}} </span>
+        <li
+          class='admin-item-row px-4 flex flex-row justify-between h-12 hover:bg-green-200 rounded-lg border hover:border-green-600'
+        >
+          <span class='overflow-hidden overflow-ellipsis'>
+            <span>id: {{this.id}} </span>
+            <span class='ml-3 overflow-hidden'>
+              {{this.title}}
+            </span>
           </span>
-          <span>
+          <span class='edit-buttons text-nowrap min-w-32'>
             <a href='/admin/edit-news/{{this.id}}'>
               <button
                 class='bg-blue-400 rounded-lg text-sm px-2 min-w-14 h-8 text-white'
@@ -90,14 +96,16 @@
     class='my-10 border border-gray-700 rounded-xl p-8 relative'
   >
     <h2 class='text-2xl mb-6'>Messages</h2>
-    <ul class='my-4 leading-10 pl-8 w-1/2'>
+    <ul class='my-4 leading-10 sm:w-full md:w-3/4 lg:w-2/3'>
       {{#each messages}}
-        <li class='flex flex-row justify-between h-12'>
-          <span>
+        <li
+          class='admin-item-row px-4 flex flex-row justify-between h-12 hover:bg-green-200 rounded-lg border hover:border-green-600'
+        >
+          <span class='overflow-hidden overflow-ellipsis'>
             <span> id: {{this.id}} </span>
             <span class='ml-3'> {{this.title}} </span>
           </span>
-          <span>
+          <span class='edit-buttons text-nowrap min-w-32'>
             <a href='/admin/edit-message/{{this.id}}'>
               <button
                 class='bg-blue-400 rounded-lg text-sm px-2 min-w-14 h-8 text-white'
