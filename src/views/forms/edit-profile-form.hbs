@@ -1,0 +1,59 @@
+{{! Edit profile form }}
+<form
+  id='profile-form'
+  action='/profile/edit'
+  method='POST'
+  class='mt-6 border border-gray-700 bg-white rounded-xl text-gray-800 p-8 flex flex-col justify-center gap-y-6 pt-12 pb-8'
+>
+  <div class='flex flex-row justify-between'>
+    <!-- User ID -->
+    <input class='hidden' type='hidden' name='id' value='{{currentUser.id}}' />
+    <label class='flex-1'>Name</label>
+
+    <!-- name -->
+    <input
+      id='name'
+      name='name'
+      class='text-left flex-1 border border-gray-700 text-gray-700 py-2 px-4 rounded-md'
+      type='text'
+      value='{{currentUser.name}}'
+    />
+  </div>
+
+  <!-- email -->
+  <div class='flex flex-row justify-between'>
+    <label class='flex-1'>email</label>
+    <input
+      id='email'
+      name='email'
+      class='text-left flex-1 border border-gray-700 text-gray-700 py-2 px-4 rounded-md'
+      type='text'
+      value='{{currentUser.email}}'
+    />
+  </div>
+
+  <!-- password -->
+  <div class='flex flex-row justify-between'>
+    <label class='flex-1'>password</label>
+    <input
+      id='password'
+      name='password'
+      class='text-left flex-1 border border-gray-700 text-gray-700 py-2 px-4 rounded-md'
+      type='password'
+      placeholder='*************'
+    />
+  </div>
+  <span class='flex flex-row justify-end gap-x-4 mt-8'>
+    <button
+      type='submit'
+      class='button rounded-md bg-gray-700 text-white px-4 py-2'
+    >Save</button>
+    <a href='/profile'>
+      <button
+        type='button'
+        class='button rounded-md border border-gray-700 text-gray-700 px-4 py-2'
+      >Cancel</button>
+    </a>
+
+  </span>
+</form>

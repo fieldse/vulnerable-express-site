@@ -11,7 +11,7 @@ const app = express();
 const hbs = create({
   defaultLayout: 'main',
   extname: '.hbs',
-  partialsDir: 'src/views/partials/',
+  partialsDir: ['src/views/partials/', 'src/views/forms/'],
   layoutsDir: 'src/layouts/',
   helpers: {
     // equality helper

@@ -15,7 +15,6 @@ export async function index(req, res) {
 }
 
 // Admin -- Add news
-// FIXME: test this
 export async function addNews(req, res) {
   try {
     if (req.method === 'POST') {
@@ -28,14 +27,13 @@ export async function addNews(req, res) {
       logSuccess(req, `updated ${result} rows`);
       return res.redirect('/admin');
     }
-    res.render('admin/add-news');
+    res.render('admin/add-news', { formAction: '/admin/add-news' });
   } catch (err) {
     res.redirect('/404');
   }
 }
 
 // Admin -- Add message
-// FIXME: test this
 export async function addMessage(req, res) {
   try {
     if (req.method === 'POST') {
@@ -48,7 +46,7 @@ export async function addMessage(req, res) {
       logSuccess(req, `updated ${result} rows`);
       return res.redirect('/admin');
     }
-    res.render('admin/add-message');
+    res.render('admin/add-message', { formAction: '/admin/add-message' });
   } catch (err) {
     res.redirect('/404');
   }
@@ -77,7 +75,10 @@ export async function editNews(req, res) {
       return res.redirect('/admin');
     }
     const { data } = await api.getNewsItem(id);
-    res.render('admin/edit-news', { news: data?.news });
+    res.render('admin/edit-news', {
+      news: data?.news,
+      formAction: `/admin/edit-news/${id}`,
+    });
   } catch (err) {
     res.redirect('/404');
   }
@@ -106,7 +107,10 @@ export async function editMessage(req, res) {
       return res.redirect('/admin');
     }
     const { data } = await api.getMessage(id);
-    res.render('admin/edit-message', { message: data?.message });
+    res.render('admin/edit-message', {
+      message: data?.message,
+      formAction: `/admin/edit-message/${id}`,
+    });
   } catch (err) {
     res.redirect('/404');
   }
@@ -125,7 +129,7 @@ export async function addUser(req, res) {
       logSuccess(req, 'created user: ' + userId);
       return res.redirect('/admin');
     }
-    res.render('admin/add-user');
+    res.render('admin/add-user', { formAction: '/admin/add-user' });
   } catch (err) {
     logErr(req, err);
     return res.redirect('/404');
@@ -159,7 +163,10 @@ export async function editUser(req, res) {
     if (!data?.user) {
       throw new Error('user not found');
     }
-    res.render('admin/edit-user', { user: data.user });
+    res.render('admin/edit-user', {
+      user: data.user,
+      formAction: `/admin/edit-user/${id}`,
+    });
   } catch (err) {
     logErr(req, err);
     return res.redirect('/404');
