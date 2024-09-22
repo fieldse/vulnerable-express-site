@@ -14,10 +14,10 @@ export async function login(req, res) {
       }
       const { user, token } = result.data;
       if (!user) {
-        throw new Error('login failed: user data empty');
+        throw new Error('login failed: no user data returned');
       }
       if (!token) {
-        throw new Error('login failed: token empty');
+        throw new Error('login failed: no token returned');
       }
 
       // Store to cookie
