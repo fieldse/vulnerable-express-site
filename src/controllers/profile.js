@@ -16,7 +16,17 @@ export async function get(req, res) {
 export async function edit(req, res) {
   if (req.method === 'POST') {
     const { id, name, email, password } = req.body; // Insecure: ID could be modified in the request body by the user
-    const result = await api.updateProfile(id, name, email, password);
+    const authToken = req.cookies?.token;
+    if (!authToken) {
+      throw new Error('login required');
+    }
+    const result = await api.updateProfile(
+      id,
+      name,
+      email,
+      password,
+      authToken
+    );
     if (result.status === 200) {
       const prevUser = req.app.locals.currentUser;
       req.app.locals.currentUser = { ...prevUser, name, email };
